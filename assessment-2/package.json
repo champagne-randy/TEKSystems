@@ -13,7 +13,6 @@
     "stylelint-config-standard": "18.2.0"
   },
   "scripts": {
-    "precommit": "lint-staged",
     "start": "HTTPS=true react-scripts start",
     "build": "react-scripts build",
     "lint:js": "eslint --ext=js --ext=jsx --fix .",
@@ -52,5 +51,10 @@
       "prettier --config .prettierrc --write",
       "git add"
     ]
+  },
+  "husky": {
+    "hooks": {
+      "precommit": "lint-staged"
+    }
   }
 }
