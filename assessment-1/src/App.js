@@ -18,25 +18,25 @@ class App extends Component {
             </a>
           </nav>
         </header>
-        <main className="contact" role="main">
+        <main className="contact__container" role="main">
           <figure
-            className="details__wrapper"
+            className="contact"
             role="img"
-            aria-describedby="hilton-chicago__contact"
+            aria-describedby="contact__details"
           >
-            <picture className="details__image">
-              <img src={hotelExterior} alt="hilto chicago hotel exterior" />
+            <picture className="contact__image">
+              <img src={hotelExterior} alt="hilton chicago hotel exterior" />
             </picture>
 
-            <figcaption id="hilton-chicago__contact" className="details">
+            <figcaption id="contact__details" className="contact__details">
               <h1>Hilton Chicago</h1>
-              <address className="hotel__address">
+              <address className="contact__address">
                 720 South Michigan Avenue
                 <br />
                 Chicago, Illinois, 60605
                 <br />
               </address>
-              <a className="tel" href="tel:1-312-922-4400">
+              <a className="contact__tel" href="tel:1-312-922-4400">
                 1-312-922-4400
               </a>
             </figcaption>

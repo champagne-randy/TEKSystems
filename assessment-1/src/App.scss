@@ -120,47 +120,28 @@ h1 {
   }
 }
 
-.details__wrapper {
-  // width: 70vw;
+.contact__container {
   max-width: em(768px);
   margin: em(30px) auto 0 auto;
-  padding: 0 em(120px);
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
   justify-content: space-between;
   align-items: flex-start;
-  .details__image {
-    // margin: 0 em(20px);
-    overflow: hidden;
-    box-shadow: 10px 10px 15px 0 rgba(0, 0, 0, 0.5);
-    border: solid 4px #ffffff;
-    & img {
-      width: 100%;
-      height: auto;
-      // margin: 0 auto;
+  .contact {
+    &__image {
+      overflow: hidden;
+      & img {
+        width: 100%;
+        height: auto;
+        box-shadow: 10px 10px 15px 0 rgba(0, 0, 0, 0.5);
+        border: solid 4px #ffffff;
+      }
     }
-  }
-  .details {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    justify-content: space-between;
-    align-items: flex-start;
-    align-self: flex-start;
-    margin-top: em(30px);
-    h1,
-    address,
-    a {
-      // margin: 0 em(20px);
+    &__tel {
+      color: white;
+      font-size: em(16px);
     }
-  }
-  .tel {
-    color: white;
-    font-size: em(16px);
-    // &:hover {
-    //   font-size: em(18px);
-    // }
   }
 }
 
