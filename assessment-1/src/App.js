@@ -8,16 +8,14 @@ class App extends Component {
     return (
       <Fragment>
         <header className="header" role="banner">
-          <nav className="nav" role="navigation">
+          <nav className="nav nav__main" role="navigation">
             <h1 className="nav__header">Hotel Details</h1>
-            <img className="nav__logo" src={logo} alt="hilto logo" />
-            <button
-              id="button__back"
-              className="button nav__putton"
-              type="button"
-            >
-              Back
-            </button>
+            <a className="nav__logo" href="/">
+              <img src={logo} alt="hilton logo" />
+            </a>
+            <a className="button nav__button" href="/">
+              <span className="button__label button__back__label">Back</span>
+            </a>
           </nav>
           <figure role="img" aria-describedby="hilton-chicago__contact">
             <img
@@ -25,6 +23,7 @@ class App extends Component {
               className="header__image"
               alt="hilto chicago hotel exterior"
             />
+
             <figcaption id="hilton-chicago__contact">
               <h1>Hilton Chicago</h1>
               <address className="header__address">
@@ -33,7 +32,7 @@ class App extends Component {
                 Chicago, Illinois, 60605
                 <br />
               </address>
-              <a className="header__tel" href="tel:1-312-922-4400">
+              <a className="tel" href="tel:1-312-922-4400">
                 1-312-922-4400
               </a>
             </figcaption>
@@ -41,10 +40,18 @@ class App extends Component {
         </header>
         <main className="menu" role="main">
           <nav className="nav" role="navigation">
-            <a href="/">Map</a>
-            <a href="/">Photo gallery</a>
-            <a href="/">Amenities</a>
-            <a href="/">Reviews</a>
+            <a className="button" href="/">
+              Map
+            </a>
+            <a className="button" href="/">
+              Photo gallery
+            </a>
+            <a className="button" href="/">
+              Amenities
+            </a>
+            <a className="button" href="/">
+              Reviews
+            </a>
           </nav>
         </main>
       </Fragment>
