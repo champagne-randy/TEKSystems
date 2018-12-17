@@ -8,16 +8,22 @@ class App extends Component {
     return (
       <Fragment>
         <header className="header" role="banner">
-          <nav className="nav nav__main" role="navigation">
-            <h1 className="nav__header">Hotel Details</h1>
-            <a className="nav__logo" href="/">
-              <img src={logo} alt="hilton logo" />
-            </a>
-            <a className="button nav__button" href="/">
-              <span className="button__label button__back__label">Back</span>
-            </a>
+          <nav className="nav nav--main" role="navigation">
+            <hgroup className="nav--main__wrapper">
+              <h1 className="nav__header">Hotel Details</h1>
+              <a className="nav__logo" href="/">
+                <img src={logo} alt="hilton logo" />
+              </a>
+              <a className="button nav__button" href="/">
+                <span className="button__label button__back__label">Back</span>
+              </a>
+            </hgroup>
           </nav>
-          <figure role="img" aria-describedby="hilton-chicago__contact">
+          <figure
+            className="contact"
+            role="img"
+            aria-describedby="hilton-chicago__contact"
+          >
             <img
               src={hotelExterior}
               className="header__image"

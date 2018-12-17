@@ -1,12 +1,6 @@
-// TODO:
-// - reset css instead of normalizing
-
-h1 {
-  margin: 0;
-}
-
 //------------------------
-$browser-context: 16;
+
+$browser-context: 16px;
 @function em($pixels, $context: $browser-context) {
   @if (unitless($pixels)) {
     $pixels: $pixels * 1px;
@@ -43,6 +37,10 @@ $browser-context: 16;
   color: #ffffff;
 }
 
+h1 {
+  margin: 0;
+}
+
 .button {
   text-decoration: none;
   border-style: solid;
@@ -58,68 +56,76 @@ $browser-context: 16;
   }
 }
 
-.nav__main {
-  height: em(52px);
-  margin: 0;
-  padding: em(5px) em(18px);
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: space-between;
-  align-items: center;
+.nav--main {
   background-color: #1c1c1c;
-  @include headerTextStyles();
-  .nav__button {
+  .nav--main__wrapper {
+    height: em(52px);
+    max-width: em(768px);
+    margin: 0 auto;
+    padding: em(5px) em(18px);
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    order: 1;
-    width: em(65px);
-    height: em(28px);
-    border-radius: em(5px);
-    // prettier-ignore
-    background-image: linear-gradient(to bottom, #ffffff, #d7d7d7 0%, #b3b3b3 1%, #949494 2%, #787878 3%, #606060 5%, #4c4c4c 7%, #3a3a3a 10%, #2c2c2c 14%, #202020 19%, #161616 24%, #0f0f0f 30%, #090909 37%, #050505 45%, #030303 54%, #010101 63%, #000000 74%, #000000 87%, #000000);
-    // prettier-ignore
-    // background-image: linear-gradient(to bottom, #ffffff, #d7d7d7 0%, #b5b5b5 2%, #979797 4%, #7d7d7d 7%, #676767 11%, #555555 15%, #464646 20%, #3a3a3a 26%, #303030 32%, #282828 39%, #222222 45%, #1d1d1d 53%, #181818 60%, #141414 68%, #101010 76%, #0c0c0c 84%, #060606 92%, #000000);
-    &:hover {
+    @include headerTextStyles();
+    .nav__button {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      justify-content: center;
+      align-items: center;
+      order: 1;
+      width: em(65px);
+      height: em(28px);
+      border-radius: em(5px);
+      // prettier-ignore
+      background-image: linear-gradient(to bottom, #ffffff, #d7d7d7 0%, #b3b3b3 1%, #949494 2%, #787878 3%, #606060 5%, #4c4c4c 7%, #3a3a3a 10%, #2c2c2c 14%, #202020 19%, #161616 24%, #0f0f0f 30%, #090909 37%, #050505 45%, #030303 54%, #010101 63%, #000000 74%, #000000 87%, #000000);
+      // prettier-ignore
+      &:hover {
       color: #fff9ab;
       // prettier-ignore
       background-image: linear-gradient(to bottom, #ffffff, #d7d7d7 0%, #b5b5b5 2%, #979797 4%, #7d7d7d 7%, #676767 11%, #555555 15%, #464646 20%, #3a3a3a 26%, #303030 32%, #282828 39%, #222222 45%, #1d1d1d 53%, #181818 60%, #141414 68%, #101010 76%, #0c0c0c 84%, #060606 92%, #000000);
     }
-    &:active {
-      // prettier-ignore
-      background-image: linear-gradient(to bottom, #ffffff, #d7d7d7 0%, #b3b3b3 1%, #949494 2%, #787878 3%, #606060 5%, #4c4c4c 7%, #3a3a3a 10%, #2c2c2c 14%, #202020 19%, #161616 24%, #0f0f0f 30%, #090909 37%, #050505 45%, #030303 54%, #010101 63%, #000000 74%, #000000 87%, #000000);
-      color: #dff0ff;
-    }
-    .button__back__label {
-      font-size: em(12px);
-      @include headerTextStyles();
-      &:hover {
-        color: #fff9ab;
-      }
       &:active {
+        // prettier-ignore
+        background-image: linear-gradient(to bottom, #ffffff, #d7d7d7 0%, #b3b3b3 1%, #949494 2%, #787878 3%, #606060 5%, #4c4c4c 7%, #3a3a3a 10%, #2c2c2c 14%, #202020 19%, #161616 24%, #0f0f0f 30%, #090909 37%, #050505 45%, #030303 54%, #010101 63%, #000000 74%, #000000 87%, #000000);
         color: #dff0ff;
       }
+      .button__back__label {
+        font-size: em(12px);
+        @include headerTextStyles();
+        &:hover {
+          color: #fff9ab;
+        }
+        &:active {
+          color: #dff0ff;
+        }
+      }
+      .button__back__label::before {
+        content: "<";
+        margin-right: em(5px);
+      }
     }
-    .button__back__label::before {
-      content: "<";
-      margin-right: em(5px);
+    .nav__header {
+      order: 2;
+      font-size: em(17px);
     }
-  }
-  .nav__header {
-    order: 2;
-    font-size: em(17px);
-  }
-  .nav__logo {
-    order: 3;
-    width: em(30px);
-    height: em(21px);
+    .nav__logo {
+      order: 3;
+      width: em(30px);
+      height: em(21px);
+    }
   }
 }
 
-.header {
+.contact {
+  width: em(375px);
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: flex-start;
   .tel {
     color: white;
     &:hover {
