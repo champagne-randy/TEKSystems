@@ -13,7 +13,8 @@ $browser-context: 16px;
   @return $pixels / $context * 1rem;
 }
 
-@mixin headerTextStyles() {
+@mixin baseTextStyles() {
+  font-family: "Open Sans", sans-serif;
   font-weight: 800;
   font-style: normal;
   font-stretch: normal;
@@ -33,7 +34,7 @@ $browser-context: 16px;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  font-family: "Open Sans", sans-serif;
+  @include baseTextStyles();
   color: #ffffff;
 }
 
@@ -70,7 +71,7 @@ h1 {
   flex-wrap: nowrap;
   justify-content: space-between;
   align-items: center;
-  @include headerTextStyles();
+  @include baseTextStyles();
   .nav__button {
     display: flex;
     flex-direction: row;
@@ -96,7 +97,7 @@ h1 {
     }
     .button__back__label {
       font-size: em(12px);
-      @include headerTextStyles();
+      @include baseTextStyles();
       &:hover {
         color: #fff9ab;
       }
@@ -129,18 +130,35 @@ h1 {
   justify-content: space-between;
   align-items: flex-start;
   .contact {
+    text-align: left;
     &__image {
       overflow: hidden;
-      & img {
+      img {
         width: 100%;
         height: auto;
         box-shadow: 10px 10px 15px 0 rgba(0, 0, 0, 0.5);
         border: solid 4px #ffffff;
       }
     }
+    &__details {
+      margin: em(30px) 0;
+      h1 {
+        margin-bottom: em(5px);
+        font-size: em(20px);
+      }
+      address {
+        margin-bottom: em(5px);
+        font-size: em(16px);
+        font-style: normal;
+        color: #a1bed9;
+      }
+    }
     &__tel {
       color: white;
-      font-size: em(16px);
+      font-size: em(15px);
+      &:hover {
+        font-size: em(15.25px);
+      }
     }
   }
 }
