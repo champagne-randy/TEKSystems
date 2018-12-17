@@ -8,17 +8,17 @@ class App extends Component {
     return (
       <Fragment>
         <header className="header" role="banner">
-          <div className="nav--main__wrapper" role="navigation">
-            <nav className="nav nav--main">
-              <h1 className="nav__header">Hotel Details</h1>
-              <a className="nav__logo" href="/">
-                <img src={logo} alt="hilton logo" />
-              </a>
-              <a className="button nav__button" href="/">
-                <span className="button__label button__back__label">Back</span>
-              </a>
-            </nav>
-          </div>
+          <nav className="nav nav--main" role="navigation">
+            <h1 className="nav__header">Hotel Details</h1>
+            <a className="nav__logo" href="/">
+              <img src={logo} alt="hilton logo" />
+            </a>
+            <a className="button nav__button" href="/">
+              <span className="button__label button__back__label">Back</span>
+            </a>
+          </nav>
+        </header>
+        <main className="contact" role="main">
           <figure
             className="details__wrapper"
             role="img"
@@ -41,8 +41,8 @@ class App extends Component {
               </a>
             </figcaption>
           </figure>
-        </header>
-        <main className="menu" role="main">
+        </main>
+        <section className="menu">
           <nav className="nav" role="navigation">
             <a className="button" href="/">
               Map
@@ -57,7 +57,7 @@ class App extends Component {
               Reviews
             </a>
           </nav>
-        </main>
+        </section>
       </Fragment>
     );
   }
