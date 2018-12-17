@@ -10,7 +10,7 @@ $browser-context: 16px;
     $context: $context * 1px;
   }
 
-  @return $pixels / $context * 1em;
+  @return $pixels / $context * 1rem;
 }
 
 @mixin headerTextStyles() {
@@ -56,9 +56,9 @@ h1 {
   }
 }
 
-.nav--main {
+.nav--main__wrapper {
   background-color: #1c1c1c;
-  .nav--main__wrapper {
+  .nav--main {
     height: em(52px);
     max-width: em(768px);
     margin: 0 auto;
@@ -119,17 +119,50 @@ h1 {
   }
 }
 
-.contact {
-  width: em(375px);
+.details__wrapper {
+  // width: 70vw;
+  max-width: em(768px);
+  margin: em(30px) auto 0 auto;
+  padding: 0 em(120px);
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
   justify-content: space-between;
   align-items: flex-start;
-  .tel {
-    color: white;
-    &:hover {
-      font-size: em(49px);
+  .details__image {
+    // margin: 0 em(20px);
+    overflow: hidden;
+    box-shadow: 10px 10px 15px 0 rgba(0, 0, 0, 0.5);
+    border: solid 4px #ffffff;
+    & img {
+      width: 100%;
+      height: auto;
+      // margin: 0 auto;
     }
   }
+  .details {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    align-self: flex-start;
+    margin-top: em(30px);
+    h1,
+    address,
+    a {
+      // margin: 0 em(20px);
+    }
+  }
+  .tel {
+    color: white;
+    font-size: em(16px);
+    // &:hover {
+    //   font-size: em(18px);
+    // }
+  }
+}
+
+.menu {
+  display: none;
 }

@@ -8,8 +8,8 @@ class App extends Component {
     return (
       <Fragment>
         <header className="header" role="banner">
-          <nav className="nav nav--main" role="navigation">
-            <hgroup className="nav--main__wrapper">
+          <div className="nav--main__wrapper" role="navigation">
+            <nav className="nav nav--main">
               <h1 className="nav__header">Hotel Details</h1>
               <a className="nav__logo" href="/">
                 <img src={logo} alt="hilton logo" />
@@ -17,22 +17,20 @@ class App extends Component {
               <a className="button nav__button" href="/">
                 <span className="button__label button__back__label">Back</span>
               </a>
-            </hgroup>
-          </nav>
+            </nav>
+          </div>
           <figure
-            className="contact"
+            className="details__wrapper"
             role="img"
             aria-describedby="hilton-chicago__contact"
           >
-            <img
-              src={hotelExterior}
-              className="header__image"
-              alt="hilto chicago hotel exterior"
-            />
+            <picture className="details__image">
+              <img src={hotelExterior} alt="hilto chicago hotel exterior" />
+            </picture>
 
-            <figcaption id="hilton-chicago__contact">
+            <figcaption id="hilton-chicago__contact" className="details">
               <h1>Hilton Chicago</h1>
-              <address className="header__address">
+              <address className="hotel__address">
                 720 South Michigan Avenue
                 <br />
                 Chicago, Illinois, 60605
