@@ -27,7 +27,6 @@ class App extends Component {
             <picture className="contact__image">
               <img src={hotelExterior} alt="hilton chicago hotel exterior" />
             </picture>
-
             <figcaption id="contact__details" className="contact__details">
               <h1>Hilton Chicago</h1>
               <address className="contact__address">
