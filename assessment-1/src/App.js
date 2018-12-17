@@ -19,7 +19,7 @@ class App extends Component {
               Back
             </button>
           </nav>
-          <figure role="figure" aria-describedby="hilton-chicago__contact">
+          <figure role="img" aria-describedby="hilton-chicago__contact">
             <img
               src={hotelExterior}
               className="header__image"
@@ -40,7 +40,7 @@ class App extends Component {
           </figure>
         </header>
         <main className="menu" role="main">
-          <nav>
+          <nav className="nav" role="navigation">
             <a href="/">Map</a>
             <a href="/">Photo gallery</a>
             <a href="/">Amenities</a>
