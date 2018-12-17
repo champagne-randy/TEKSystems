@@ -8,12 +8,12 @@ class App extends Component {
     return (
       <Fragment>
         <header className="header" role="banner">
-          <nav className="nav nav--main" role="navigation">
-            <h1 className="nav__header">Hotel Details</h1>
-            <a className="nav__logo" href="/">
+          <nav className="nav header__nav" role="navigation">
+            <h1 className="header__nav__title">Hotel Details</h1>
+            <a className="header__nav__logo" href="/">
               <img src={logo} alt="hilton logo" />
             </a>
-            <a className="button nav__button" href="/">
+            <a className="button header__nav__button" href="/">
               <span className="button__label button__back__label">Back</span>
             </a>
           </nav>
@@ -43,18 +43,22 @@ class App extends Component {
           </figure>
         </main>
         <section className="menu">
-          <nav className="nav" role="navigation">
-            <a className="button" href="/">
-              Map
+          <nav className="menu__nav" role="navigation">
+            <a className="button menu__nav__button" href="/">
+              <span className="button__label button__menu__label">Map</span>
             </a>
-            <a className="button" href="/">
-              Photo gallery
+            <a className="button menu__nav__button" href="/">
+              <span className="button__label button__menu__label">
+                Photo gallery
+              </span>
             </a>
-            <a className="button" href="/">
-              Amenities
+            <a className="button menu__nav__button" href="/">
+              <span className="button__label button__menu__label">
+                Amenities
+              </span>
             </a>
-            <a className="button" href="/">
-              Reviews
+            <a className="button menu__nav__button" href="/">
+              <span className="button__label button__menu__label">Reviews</span>
             </a>
           </nav>
         </section>
