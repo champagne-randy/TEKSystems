@@ -39,6 +39,14 @@ class App extends Component {
             </figcaption>
           </figure>
         </header>
+        <main className="menu" role="main">
+          <nav>
+            <a href="/">Map</a>
+            <a href="/">Photo gallery</a>
+            <a href="/">Amenities</a>
+            <a href="/">Reviews</a>
+          </nav>
+        </main>
       </Fragment>
     );
   }
