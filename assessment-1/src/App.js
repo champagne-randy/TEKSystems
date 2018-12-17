@@ -1,26 +1,53 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component, Fragment } from "react";
+import logo from "./logo.svg";
+import hotelExterior from "./hotelexterior.jpg";
+import "./App.scss";
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
+      <Fragment>
+        <header className="header" role="banner">
+          <nav className="nav" role="navigation">
+            <h1 className="nav__header">Hotel Details</h1>
+            <img className="nav__logo" src={logo} alt="hilto logo" />
+            <button
+              id="button__back"
+              className="button nav__putton"
+              type="button"
+            >
+              Back
+            </button>
+          </nav>
+          <figure role="figure" aria-describedby="hilton-chicago__contact">
+            <img
+              src={hotelExterior}
+              className="header__image"
+              alt="hilto chicago hotel exterior"
+            />
+            <figcaption id="hilton-chicago__contact">
+              <h1>Hilton Chicago</h1>
+              <address className="header__address">
+                720 South Michigan Avenue
+                <br />
+                Chicago, Illinois, 60605
+                <br />
+              </address>
+              <a className="header__tel" href="tel:1-312-922-4400">
+                1-312-922-4400
+              </a>
+            </figcaption>
+          </figure>
         </header>
-      </div>
+        <main className="menu" role="main">
+          <nav>
+            <a href="/">Map</a>
+            <a href="/">Photo gallery</a>
+            <a href="/">Amenities</a>
+            <a href="/">Reviews</a>
+          </nav>
+        </main>
+      </Fragment>
     );
   }
 }
