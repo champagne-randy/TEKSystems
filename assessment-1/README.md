@@ -29,7 +29,7 @@ Accessibility was a high priority when implementing this solution. I implemented
 
 # Running project
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). You can either use npm scripts below to launch project locally or [view the project in a code sandbox](https://codesandbox.io/s/vjrwwk36pl)
 
 ## Available Scripts
 

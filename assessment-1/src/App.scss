@@ -1,7 +1,7 @@
 //------------------------
 
 $browser-context: 16px;
-@function em($pixels, $context: $browser-context) {
+@function resp($pixels, $context: $browser-context) {
   @if (unitless($pixels)) {
     $pixels: $pixels * 1px;
   }
@@ -44,7 +44,7 @@ $browser-context: 16px;
 .button {
   text-decoration: none;
   border-style: solid;
-  border-width: em(1px);
+  border-width: resp(1px);
   border-top-color: rgb(216, 216, 216);
   border-right-color: rgb(209, 209, 209);
   border-bottom-color: rgb(186, 186, 186);
@@ -56,10 +56,10 @@ $browser-context: 16px;
 }
 
 .header__nav {
-  height: em(52px);
-  max-width: em(768px);
+  height: resp(52px);
+  max-width: resp(768px);
   margin: 0 auto;
-  padding: em(5px) em(18px);
+  padding: resp(5px) resp(18px);
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
@@ -73,9 +73,9 @@ $browser-context: 16px;
     justify-content: center;
     align-items: center;
     order: 1;
-    width: em(65px);
-    height: em(28px);
-    border-radius: em(5px);
+    width: resp(65px);
+    height: resp(28px);
+    border-radius: resp(5px);
     // prettier-ignore
     background-image: linear-gradient(to bottom, #ffffff, #d7d7d7 0%, #b3b3b3 1%, #949494 2%, #787878 3%, #606060 5%, #4c4c4c 7%, #3a3a3a 10%, #2c2c2c 14%, #202020 19%, #161616 24%, #0f0f0f 30%, #090909 37%, #050505 45%, #030303 54%, #010101 63%, #000000 74%, #000000 87%, #000000);
     &:hover,
@@ -94,7 +94,7 @@ $browser-context: 16px;
       color: #dff0ff;
     }
     .button__back__label {
-      font-size: em(12px);
+      font-size: resp(12px);
       @include baseTextStyles();
       &:hover {
         color: #fff9ab;
@@ -104,24 +104,24 @@ $browser-context: 16px;
       }
       &::before {
         content: "<";
-        margin-right: em(5px);
+        margin-right: resp(5px);
       }
     }
   }
   &__title {
     order: 2;
-    font-size: em(17px);
+    font-size: resp(17px);
   }
   &__logo {
     order: 3;
-    width: em(30px);
-    height: em(21px);
+    width: resp(30px);
+    height: resp(21px);
   }
 }
 
 .contact__container {
-  max-width: em(768px);
-  margin: em(30px) auto 0 auto;
+  max-width: resp(768px);
+  margin: resp(30px) auto 0 auto;
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
@@ -129,7 +129,7 @@ $browser-context: 16px;
   align-items: flex-start;
   .contact {
     text-align: left;
-    margin: 0 em(40px);
+    margin: 0 resp(40px);
     &__image {
       overflow: hidden;
       img {
@@ -137,28 +137,28 @@ $browser-context: 16px;
         width: 100%;
         height: auto;
         margin: 0 auto;
-        box-shadow: 10px 10px 15px 0 rgba(0, 0, 0, 0.5);
-        border: solid 4px #ffffff;
+        box-shadow: resp(10px) resp(10px) resp(15px) 0 rgba(0, 0, 0, 0.5);
+        border: solid resp(4px) #ffffff;
       }
     }
     &__details {
-      margin: em(30px) 0;
+      margin: resp(30px) 0;
       h1 {
-        margin-bottom: em(5px);
-        font-size: em(20px);
+        margin-bottom: resp(5px);
+        font-size: resp(20px);
       }
       address {
-        margin-bottom: em(5px);
-        font-size: em(16px);
+        margin-bottom: resp(5px);
+        font-size: resp(16px);
         font-style: normal;
         color: #a1bed9;
       }
     }
     &__tel {
       color: white;
-      font-size: em(15px);
+      font-size: resp(15px);
       &:hover {
-        font-size: em(15.25px);
+        font-size: resp(15.25px);
       }
     }
   }
@@ -166,26 +166,26 @@ $browser-context: 16px;
 
 .menu {
   width: 100%;
-  max-width: em(768px);
-  margin: 0 auto em(30px) auto;
+  max-width: resp(768px);
+  margin: 0 auto resp(30px) auto;
   &__nav {
-    margin: 0 em(40px);
+    margin: 0 resp(40px);
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
     justify-content: flex-start;
     align-items: stretch;
     &__button {
-      height: em(50px);
+      height: resp(50px);
       // prettier-ignore
       background-image: linear-gradient(to bottom, #eff6fc, #ebf3f9 11%, #e7eff6 22%, #e3ecf3 32%, #dfe8f0 41%, #dbe4ed 49%, #d6e1ea 56%, #d2dde7 64%, #cedae5 70%, #cbd7e2 76%, #c7d4e0 81%, #c5d2de 87%, #c2d0dd 91%, #c1cfdc 96%, #c0cedb);
       &:first-child {
-        border-top-left-radius: em(10px);
-        border-top-right-radius: em(10px);
+        border-top-left-radius: resp(10px);
+        border-top-right-radius: resp(10px);
       }
       &:last-child {
-        border-bottom-left-radius: em(10px);
-        border-bottom-right-radius: em(10px);
+        border-bottom-left-radius: resp(10px);
+        border-bottom-right-radius: resp(10px);
       }
       &:hover {
         // prettier-ignore
@@ -198,14 +198,14 @@ $browser-context: 16px;
       .button__menu__label {
         height: 100%;
         margin: auto 0;
-        padding: 0 em(20px);
+        padding: 0 resp(20px);
         display: flex;
         flex-direction: row;
         flex-wrap: nowrap;
         justify-content: space-between;
         align-items: center;
         @include baseTextStyles();
-        font-size: em(18px);
+        font-size: resp(18px);
         color: #0c1e30;
         &:hover {
           color: #1e83e7;
@@ -222,8 +222,8 @@ $browser-context: 16px;
 }
 
 .footer {
-  margin-top: em(30px);
-  height: em(52px);
+  margin-top: resp(30px);
+  height: resp(52px);
   width: 100%;
 
   display: flex;
