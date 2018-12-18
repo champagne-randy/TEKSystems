@@ -1,3 +1,34 @@
+<!-- prettier-ignore-start -->
+
+# Implementation Notes
+
+Below is a brief overview of my design & implementation strategy
+
+## UI
+
+I solved the responsiveness [graphically in Sketch](https://scene.zeplin.io/project/5c130cd2c5dd4c508a2cf68f) then validated interaction with a [prototype in InVision](https://invis.io/J5PN8EM2AZP). There I defined necessary states for buttons & implemented them with CSS.
+
+## Accessibility
+
+Accessibility was a high priority when implementing this solution. I implemented the markup to deliver a pleasant UX to clients who browse with assistive tech. This semantic markup prvides the added benefit of an SEO boost. To that end I:
+
+- Ordered html elements to provide a natural information flow & tab order. I then used CSS Flexbox rules to implement the visual order
+- Used html5 semantic elements: nav, header, address...
+- Used standards compliant Aria labels
+
+## Additional Implementation Details
+
+- Used [normalize.css](https://github.com/necolas/normalize.css/) to reset built-in styling for all browsers
+- I used `::before` & `::after` pseudo-elements to attach icons via css instead of adding them to the markup markup
+
+
+
+
+
+
+
+# Running project
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
@@ -42,3 +73,5 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+<!-- prettier-ignore-end -->
