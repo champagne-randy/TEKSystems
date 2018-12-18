@@ -61,6 +61,9 @@ class App extends Component {
             </a>
           </nav>
         </section>
+        <footer className="footer">
+          <span>&copy; 2018 Hilton</span>
+        </footer>
       </Fragment>
     );
   }
