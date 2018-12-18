@@ -8,45 +8,62 @@ class App extends Component {
     return (
       <Fragment>
         <header className="header" role="banner">
-          <nav className="nav" role="navigation">
-            <h1 className="nav__header">Hotel Details</h1>
-            <img className="nav__logo" src={logo} alt="hilto logo" />
-            <button
-              id="button__back"
-              className="button nav__putton"
-              type="button"
-            >
-              Back
-            </button>
+          <nav className="nav header__nav" role="navigation">
+            <h1 className="header__nav__title">Hotel Details</h1>
+            <a className="header__nav__logo" href="/">
+              <img src={logo} alt="hilton logo" />
+            </a>
+            <a className="button header__nav__button" href="/">
+              <span className="button__label button__back__label">Back</span>
+            </a>
           </nav>
-          <figure role="figure" aria-describedby="hilton-chicago__contact">
-            <img
-              src={hotelExterior}
-              className="header__image"
-              alt="hilto chicago hotel exterior"
-            />
-            <figcaption id="hilton-chicago__contact">
+        </header>
+        <main className="contact__container" role="main">
+          <figure
+            className="contact"
+            role="img"
+            aria-describedby="contact__details"
+          >
+            <picture className="contact__image">
+              <img src={hotelExterior} alt="hilton chicago hotel exterior" />
+            </picture>
+            <figcaption id="contact__details" className="contact__details">
               <h1>Hilton Chicago</h1>
-              <address className="header__address">
+              <address className="contact__address">
                 720 South Michigan Avenue
                 <br />
                 Chicago, Illinois, 60605
                 <br />
               </address>
-              <a className="header__tel" href="tel:1-312-922-4400">
+              <a className="contact__tel" href="tel:1-312-922-4400">
                 1-312-922-4400
               </a>
             </figcaption>
           </figure>
-        </header>
-        <main className="menu" role="main">
-          <nav>
-            <a href="/">Map</a>
-            <a href="/">Photo gallery</a>
-            <a href="/">Amenities</a>
-            <a href="/">Reviews</a>
-          </nav>
         </main>
+        <section className="menu">
+          <nav className="menu__nav" role="navigation">
+            <a className="button menu__nav__button" href="/">
+              <span className="button__label button__menu__label">Map</span>
+            </a>
+            <a className="button menu__nav__button" href="/">
+              <span className="button__label button__menu__label">
+                Photo gallery
+              </span>
+            </a>
+            <a className="button menu__nav__button" href="/">
+              <span className="button__label button__menu__label">
+                Amenities
+              </span>
+            </a>
+            <a className="button menu__nav__button" href="/">
+              <span className="button__label button__menu__label">Reviews</span>
+            </a>
+          </nav>
+        </section>
+        <footer className="footer">
+          <span>&copy; 2018 Hilton</span>
+        </footer>
       </Fragment>
     );
   }
