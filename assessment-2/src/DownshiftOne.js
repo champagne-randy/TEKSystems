@@ -13,7 +13,7 @@ const onChange = selectedBook => {
   alert(`your favourite book is ${selectedBook.name}`);
 };
 
-export default ({ onChange }) => {
+export default () => {
   return (
     <Downshift
       onChange={onChange}
