@@ -1,32 +1,45 @@
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-}
-
-.App-header {
-  background-color: #282c34;
+  background-color: black;
+  width: 100%;
   min-height: 100vh;
+  color: #fff;
+}
+input {
+  margin: 1rem;
+  width: 20rem;
+  padding: 1rem 0.5rem;
+}
+.downshift {
+  margin: 0 auto;
+}
+.downshift-dropdown {
+  margin: 0 auto;
+  width: 20rem;
+  border: 1px solid whitesmoke;
+  border-bottom: none;
+}
+.dropdown-item {
+  padding: 0.5rem;
+  cursor: pointer;
+  border-bottom: 1px solid whitesmoke;
+  color: #000;
+  font-size: 1rem;
+  text-align: left;
+}
+.dropdown-button {
+  padding: 0.6rem;
+  border-radius: 3px;
+  background: white;
+  cursor: pointer;
+}
+.popper-div {
+  flex: 1;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  margin-top: 5rem;
 }
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.popper-item {
+  padding: 0.5rem;
+  border-bottom: 1px solid whitesmoke;
 }

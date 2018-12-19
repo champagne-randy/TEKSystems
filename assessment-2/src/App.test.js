@@ -10,7 +10,7 @@ describe("jest-enzyme", () => {
 
   it("renders welcome message", () => {
     const wrapper = shallow(<App />);
-    const welcome = <h2>Welcome to React</h2>;
+    const welcome = <h1 className="App-title">Welcome to React</h1>;
     // expect(wrapper.contains(welcome)).toBe(true);
     expect(wrapper.contains(welcome)).toEqual(true);
   });
