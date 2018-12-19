@@ -1,24 +1,20 @@
 import React from "react";
 import { shallow } from "enzyme";
 import { render } from "react-testing-library";
+import logo from "./logo.svg";
 import App from "./App";
 
-describe("jest-enzyme", () => {
-  it("renders without crashing", () => {
-    shallow(<App />);
-  });
-
-  it("renders welcome message", () => {
-    const wrapper = shallow(<App />);
-    const welcome = <h2>Welcome to React</h2>;
-    // expect(wrapper.contains(welcome)).toBe(true);
-    expect(wrapper.contains(welcome)).toEqual(true);
-  });
+it("renders <App/> without crashing", () => {
+  shallow(<App />);
 });
 
-describe("react-testing-library", () => {
-  it("renders welcome message", () => {
-    const { getByText } = render(<App />);
-    expect(getByText("Welcome to React")).toBeInTheDocument();
-  });
+it("renders Hilton logo", () => {
+  const wrapper = shallow(<App />);
+  const _logo = <img src={logo} className="App-logo" alt="logo" />;
+  expect(wrapper.contains(_logo)).toEqual(true);
+});
+
+it("renders app title", () => {
+  const { getByText } = render(<App />);
+  expect(getByText("Hilton Assessment 2")).toBeInTheDocument();
 });
