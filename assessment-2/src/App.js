@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import DownshiftOne from "./DownshiftOne";
+import Downshift from "./DownshiftTwo";
 import logo from "./logo.svg";
 import "./App.css";
 
@@ -11,7 +11,7 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to React</h1>
         </header>
-        <DownshiftOne className="downshift" />
+        <Downshift className="downshift" />
       </div>
     );
   }
