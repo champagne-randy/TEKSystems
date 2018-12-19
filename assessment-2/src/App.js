@@ -11,13 +11,11 @@ class App extends Component {
     this.state = {
       activeRooms: new Map()
     };
-    this.handleToggleRoomActivation = this.handleToggleRoomActivation.bind(
-      this
-    );
+    this.toggleRoomActivation = this.toggleRoomActivation.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
   }
 
-  handleToggleRoomActivation(e) {
+  toggleRoomActivation(e) {
     const { name, checked: isActive } = e.target;
     const index = findIndex(rooms, { name });
     const activeRooms = new Map();
@@ -31,13 +29,12 @@ class App extends Component {
   handleFormSubmit = event => {
     event.preventDefault();
     console.log("Submitted!");
-    // console.dir(this.refs.name.value);
   };
 
   render() {
     return (
       <section className="App">
-        <header className="App-header">
+        <header className="App-header" role="banner">
           <img src={logo} className="App-logo" alt="logo" />
           <h1>Hilton Assessment 2</h1>
         </header>
@@ -49,7 +46,8 @@ class App extends Component {
                   <Room
                     name={room.name}
                     isActive={this.state.activeRooms.get(room.name)}
-                    onToggleActivation={this.handleToggleRoomActivation}
+                    onToggleActivation={this.toggleRoomActivation}
+                    availability={room.availability}
                   />
                 </div>
               ))}

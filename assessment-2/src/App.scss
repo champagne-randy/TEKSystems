@@ -58,8 +58,8 @@
       align-items: flex-start;
     }
     &__room--wrapper {
-      width: 100px;
-      height: 85px;
+      // width: 100px;
+      height: fit-content;
       display: inline-flex;
       margin: 0;
       margin-bottom: 20px;
