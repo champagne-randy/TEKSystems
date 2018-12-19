@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { findIndex } from "lodash";
 import logo from "./logo.svg";
 import Room from "./Room";
 import rooms from "./room.data";
@@ -17,11 +18,14 @@ class App extends Component {
   }
 
   handleToggleRoomActivation(e) {
-    const room = e.target.name;
-    const isActive = e.target.checked;
-    this.setState(prevState => ({
-      activeRooms: prevState.activeRooms.set(room, isActive)
-    }));
+    const { name, checked: isActive } = e.target;
+    const index = findIndex(rooms, { name });
+    const activeRooms = new Map();
+    activeRooms.set(name, isActive);
+    rooms.slice(0, index).map(room => activeRooms.set(room.name, true));
+    this.setState({
+      activeRooms
+    });
   }
 
   handleFormSubmit = event => {
