@@ -3,27 +3,34 @@ import PropTypes from "prop-types";
 import Dropdown from "react-dropdown";
 import { range } from "lodash";
 import { compose, withProps } from "recompose";
+import ShouldShow from "react-should-show";
 import { Validate } from "./utils";
 import "./Room.scss";
 import "react-dropdown/style.css";
 
+// TODO:
+// - replace all sections with fieldsets
 const Room = ({
   type = "checkbox",
   name,
   isActive = false,
+  isRequired = false,
   onToggleActivation,
   options,
   onSelect
 }) => (
   <section className="room">
     <header className="room__title">
-      <input
-        type={type}
-        name={name}
-        checked={isActive}
-        onChange={onToggleActivation}
-      />
-      <label>
+      <ShouldShow shouldShow={!isRequired}>
+        <input
+          type={type}
+          name={name}
+          id={`${name}__activation`}
+          checked={isActive || isRequired}
+          onChange={onToggleActivation}
+        />
+      </ShouldShow>
+      <label htmlFor={`${name}__activation`}>
         <h2>{name}</h2>
       </label>
     </header>
@@ -40,7 +47,7 @@ const Room = ({
           onChange={onSelect}
           value={options.adult[0]}
           placeholder={`${options.adult[0]}`}
-          disabled={!isActive}
+          disabled={!isActive && !isRequired}
         />
       </section>
       <section>
@@ -55,7 +62,7 @@ const Room = ({
           onChange={onSelect}
           value={options.child[0]}
           placeholder={`${options.child[0]}`}
-          disabled={!isActive}
+          disabled={!isActive && !isRequired}
         />
       </section>
     </main>
@@ -66,6 +73,7 @@ Room.propTypes = {
   type: PropTypes.string,
   name: PropTypes.string.isRequired,
   isActive: PropTypes.bool,
+  isRequired: PropTypes.bool,
   onToggleActivation: PropTypes.func.isRequired,
   availability: PropTypes.shape({
     adult: Validate.prop.greaterThanZero,

@@ -41,11 +41,12 @@ class App extends Component {
         <main className="room-block" role="main">
           <form className="room-block__form" onSubmit={this.handleFormSubmit}>
             <fieldset className="room-block__form__room--container">
-              {rooms.map(room => (
+              {rooms.map((room, index) => (
                 <div key={room.key} className="room-block__form__room--wrapper">
                   <Room
                     name={room.name}
                     isActive={this.state.activeRooms.get(room.name)}
+                    isRequired={index === 0}
                     onToggleActivation={this.toggleRoomActivation}
                     availability={room.availability}
                   />

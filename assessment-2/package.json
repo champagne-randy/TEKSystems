@@ -10,6 +10,7 @@
     "react-dom": "^16.6.3",
     "react-dropdown": "1.6.3",
     "react-scripts": "2.1.1",
+    "react-should-show": "1.0.0",
     "recompose": "0.30.0"
   },
   "scripts": {
