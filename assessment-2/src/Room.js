@@ -10,6 +10,7 @@ import "react-dropdown/style.css";
 
 // TODO:
 // - replace all sections with fieldsets
+// - why can I set placeholder dynamically for the dropdowns?
 const Room = ({
   type = "checkbox",
   name,
@@ -46,7 +47,7 @@ const Room = ({
           options={options.adult}
           onChange={onSelect}
           value={options.adult[0]}
-          placeholder={`${options.adult[0]}`}
+          placeholder="1"
           disabled={!isActive && !isRequired}
         />
       </section>
@@ -61,7 +62,7 @@ const Room = ({
           options={options.child}
           onChange={onSelect}
           value={options.child[0]}
-          placeholder={`${options.child[0]}`}
+          placeholder="1"
           disabled={!isActive && !isRequired}
         />
       </section>
