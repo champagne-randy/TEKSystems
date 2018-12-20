@@ -4,13 +4,15 @@ import Dropdown from "react-dropdown";
 import { range } from "lodash";
 import { compose, withProps } from "recompose";
 import ShouldShow from "react-should-show";
+import classNames from "classnames";
 import { Validate } from "./utils";
-import "./Room.scss";
 import "react-dropdown/style.css";
+import "./Room.scss";
 
 // TODO:
 // - replace all sections with fieldsets
 // - why can I set placeholder dynamically for the dropdowns?
+// - lift dropdown state & handler
 const Room = ({
   type = "checkbox",
   name,
@@ -18,8 +20,8 @@ const Room = ({
   isActive = false,
   isRequired = false,
   onToggleActivation,
-  options,
-  onSelect
+  updateRoomData,
+  options
 }) => (
   <section className="room">
     <header className="room__title">
@@ -36,7 +38,11 @@ const Room = ({
         <h2>{label}</h2>
       </label>
     </header>
-    <main>
+    <main
+      className={classNames("room__requests", {
+        room__requests__active: isActive || isRequired
+      })}
+    >
       <section>
         <h3>
           Adults
@@ -46,7 +52,7 @@ const Room = ({
         <Dropdown
           className="room__dropdown"
           options={options.adult}
-          onChange={onSelect}
+          onChange={event => updateRoomData({ event, data: {} })}
           value={options.adult[0]}
           placeholder="1"
           disabled={!isActive && !isRequired}
@@ -61,7 +67,7 @@ const Room = ({
         <Dropdown
           className="room__dropdown"
           options={options.child}
-          onChange={onSelect}
+          onChange={event => updateRoomData({ event, data: {} })}
           value={options.child[0]}
           placeholder="1"
           disabled={!isActive && !isRequired}
@@ -78,6 +84,7 @@ Room.propTypes = {
   isActive: PropTypes.bool,
   isRequired: PropTypes.bool,
   onToggleActivation: PropTypes.func.isRequired,
+  updateRoomData: PropTypes.func.isRequired,
   availability: PropTypes.shape({
     adult: Validate.prop.greaterThanZero,
     child: Validate.prop.greaterThanZero

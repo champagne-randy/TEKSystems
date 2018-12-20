@@ -10,10 +10,16 @@
   font-size: 9px;
   &__title {
   }
+  &__requests {
+    &__active {
+      background-color: #ffffff;
+    }
+  }
 }
 .room__dropdown {
   // height: 20px;
 }
 
 .Dropdown-disabled {
+  background-color: #f0f0f0;
 }
