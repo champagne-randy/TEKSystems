@@ -88,8 +88,8 @@ Room.propTypes = {
 export default compose(
   withProps(({ availability }) => ({
     options: {
-      adult: range(1, availability.adult),
-      child: range(1, availability.child)
+      adult: range(1, availability.adult + 1),
+      child: range(1, availability.child + 1)
     }
   }))
 )(Room);
