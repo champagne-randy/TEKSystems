@@ -7,14 +7,23 @@
   background-color: #e7e7e7;
   display: flex;
   flex-direction: column;
-  align-items: space-around;
+  flex-wrap: nowrap;
   justify-content: flex-start;
+  align-items: space-around;
   font-size: 9px;
   &__disabled {
     border: solid 5px #cdd0df;
     background-color: #dbdbe3;
   }
-  &__title {
+  &__header {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    input {
+      margin-right: 5px;
+    }
   }
   &__requests {
     &__active {

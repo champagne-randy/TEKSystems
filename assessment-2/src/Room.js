@@ -28,7 +28,7 @@ const Room = ({
       room__disabled: !isActive
     })}
   >
-    <header className="room__title">
+    <header className="room__header">
       <ShouldShow shouldShow={!isRequired}>
         <input
           type={type}
