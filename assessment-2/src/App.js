@@ -4,8 +4,6 @@ import logo from "./logo.svg";
 import Room from "./Room";
 import "./App.scss";
 
-// TODO:
-// - consider using a Set for activeRooms instead
 class App extends Component {
   constructor() {
     super();
@@ -16,11 +14,14 @@ class App extends Component {
   }
 
   componentDidMount() {
-    // stub for backend data fetch
+    // Note:
+    // - this is a stub for backend data fetch
+    // - can make Ajax call to a ReST backend here
+    // - can alternatively compose this component with Apollo HOC to fetch from GraphQL backend then map props
     const rooms = require("./room.data.json");
-    const activeRooms = new Map();
+    const activeRooms = new Set();
     if (rooms.length > 0) {
-      activeRooms.set(rooms[0].name, true);
+      activeRooms.add(rooms[0].name);
     }
     const requestedRooms = {
       ...rooms.reduce(
@@ -41,9 +42,11 @@ class App extends Component {
     const { name, checked: isActive } = event.target;
     const { rooms } = this.state;
     const index = findIndex(rooms, { name });
-    const activeRooms = new Map();
-    activeRooms.set(name, isActive);
-    rooms.slice(0, index).map(room => activeRooms.set(room.name, true));
+    const activeRooms = new Set();
+    if (isActive) {
+      activeRooms.add(name);
+    }
+    rooms.slice(0, index).map(room => activeRooms.add(room.name));
     this.setState({
       activeRooms
     });
@@ -66,7 +69,9 @@ class App extends Component {
 
   render() {
     const { rooms, activeRooms } = this.state;
-    // Only render component if there's room data
+    // Note:
+    // - I chose to only render component if there's room data
+    // - This behavior can easily be changed i.e. to render an empy/disabled state
     if (!rooms || !activeRooms) {
       return null;
     }
@@ -79,12 +84,12 @@ class App extends Component {
         <main className="room-block" role="main">
           <form className="room-block__form" onSubmit={this.handleFormSubmit}>
             <fieldset className="room-block__form__room--container">
-              {this.state.rooms.map((room, index) => (
+              {rooms.map((room, index) => (
                 <div key={room.key} className="room-block__form__room--wrapper">
                   <Room
                     name={room.name}
                     label={room.label}
-                    isActive={this.state.activeRooms.get(room.name)}
+                    isActive={activeRooms.has(room.name)}
                     isRequired={index === 0}
                     onToggleActivation={this.toggleRoomActivation}
                     updateRequestedRooms={this.updateRequestedRooms}
