@@ -45,6 +45,7 @@ class App extends Component {
                 <div key={room.key} className="room-block__form__room--wrapper">
                   <Room
                     name={room.name}
+                    label={room.label}
                     isActive={this.state.activeRooms.get(room.name)}
                     isRequired={index === 0}
                     onToggleActivation={this.toggleRoomActivation}

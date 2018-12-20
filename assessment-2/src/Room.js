@@ -14,6 +14,7 @@ import "react-dropdown/style.css";
 const Room = ({
   type = "checkbox",
   name,
+  label,
   isActive = false,
   isRequired = false,
   onToggleActivation,
@@ -32,7 +33,7 @@ const Room = ({
         />
       </ShouldShow>
       <label htmlFor={`${name}__activation`}>
-        <h2>{name}</h2>
+        <h2>{label}</h2>
       </label>
     </header>
     <main>
@@ -73,6 +74,7 @@ const Room = ({
 Room.propTypes = {
   type: PropTypes.string,
   name: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
   isActive: PropTypes.bool,
   isRequired: PropTypes.bool,
   onToggleActivation: PropTypes.func.isRequired,
