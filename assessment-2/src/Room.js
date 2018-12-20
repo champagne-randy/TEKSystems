@@ -12,8 +12,8 @@ import "./Room.scss";
 // TODO:
 // - replace all sections with fieldsets
 // - why can I set placeholder dynamically for the dropdowns?
+// - should isActive automagically be true if isRequired?
 const Room = ({
-  type = "checkbox",
   name,
   label,
   isActive = false,
@@ -22,11 +22,15 @@ const Room = ({
   updateRequestedRooms,
   options
 }) => (
-  <section className="room">
-    <header className="room__title">
+  <section
+    className={classNames("room", {
+      room__disabled: !isActive
+    })}
+  >
+    <header className="room__header">
       <ShouldShow shouldShow={!isRequired}>
         <input
-          type={type}
+          type="checkbox"
           name={name}
           id={`${name}__activation`}
           checked={isActive || isRequired}
@@ -81,7 +85,6 @@ const Room = ({
 );
 
 Room.propTypes = {
-  type: PropTypes.string,
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   isActive: PropTypes.bool,

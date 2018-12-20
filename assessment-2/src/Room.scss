@@ -1,21 +1,50 @@
 .room {
+  box-sizing: border-box;
   width: 100%;
   height: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #e7e7e7;
   display: flex;
   flex-direction: column;
-  align-items: space-around;
+  flex-wrap: nowrap;
   justify-content: flex-start;
-
-  background-color: #dbdbe3;
+  align-items: space-around;
   font-size: 9px;
-  &__title {
+  &__disabled {
+    border: solid 5px #cdd0df;
+    background-color: #dbdbe3;
+  }
+  &__header {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    input {
+      margin-right: 5px;
+    }
   }
   &__requests {
+    width: 100%;
+    height: fit-content;
+    padding-bottom: 15px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    align-items: flex-start;
     &__active {
       background-color: #ffffff;
     }
+    section {
+      width: 45%;
+    }
   }
 }
+
+// TODO:
+// - fold this into parent style scope
 .room__dropdown {
   // height: 20px;
 }
