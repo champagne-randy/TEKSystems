@@ -26,11 +26,25 @@
     }
   }
   &__requests {
+    width: 100%;
+    height: fit-content;
+    padding-bottom: 15px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    align-items: flex-start;
     &__active {
       background-color: #ffffff;
     }
+    section {
+      width: 45%;
+    }
   }
 }
+
+// TODO:
+// - fold this into parent style scope
 .room__dropdown {
   // height: 20px;
 }
