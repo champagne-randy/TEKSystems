@@ -12,7 +12,6 @@ import "./Room.scss";
 // TODO:
 // - replace all sections with fieldsets
 // - why can I set placeholder dynamically for the dropdowns?
-// - lift dropdown state & handler
 const Room = ({
   type = "checkbox",
   name,
@@ -20,7 +19,7 @@ const Room = ({
   isActive = false,
   isRequired = false,
   onToggleActivation,
-  updateRoomData,
+  updateRequestedRooms,
   options
 }) => (
   <section className="room">
@@ -31,7 +30,7 @@ const Room = ({
           name={name}
           id={`${name}__activation`}
           checked={isActive || isRequired}
-          onChange={onToggleActivation}
+          onChange={event => onToggleActivation({ event })}
         />
       </ShouldShow>
       <label htmlFor={`${name}__activation`}>
@@ -52,7 +51,9 @@ const Room = ({
         <Dropdown
           className="room__dropdown"
           options={options.adult}
-          onChange={event => updateRoomData({ event, data: {} })}
+          onChange={event =>
+            updateRequestedRooms({ name, data: { adult: event.value } })
+          }
           value={options.adult[0]}
           placeholder="1"
           disabled={!isActive && !isRequired}
@@ -67,7 +68,9 @@ const Room = ({
         <Dropdown
           className="room__dropdown"
           options={options.child}
-          onChange={event => updateRoomData({ event, data: {} })}
+          onChange={event =>
+            updateRequestedRooms({ name, data: { child: event.value } })
+          }
           value={options.child[0]}
           placeholder="1"
           disabled={!isActive && !isRequired}
@@ -84,7 +87,7 @@ Room.propTypes = {
   isActive: PropTypes.bool,
   isRequired: PropTypes.bool,
   onToggleActivation: PropTypes.func.isRequired,
-  updateRoomData: PropTypes.func.isRequired,
+  updateRequestedRooms: PropTypes.func.isRequired,
   availability: PropTypes.shape({
     adult: Validate.prop.greaterThanZero,
     child: Validate.prop.greaterThanZero

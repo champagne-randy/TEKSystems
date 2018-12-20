@@ -2,21 +2,44 @@ import React, { Component } from "react";
 import { findIndex } from "lodash";
 import logo from "./logo.svg";
 import Room from "./Room";
-import rooms from "./room.data";
 import "./App.scss";
 
+// TODO:
+// - consider using a Set for activeRooms instead
 class App extends Component {
   constructor() {
     super();
-    this.state = {
-      activeRooms: new Map()
-    };
+    this.state = { rooms: [], activeRooms: new Map(), requestedRooms: {} };
     this.toggleRoomActivation = this.toggleRoomActivation.bind(this);
+    this.updateRequestedRooms = this.updateRequestedRooms.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
   }
 
-  toggleRoomActivation(e) {
-    const { name, checked: isActive } = e.target;
+  componentDidMount() {
+    // stub for backend data fetch
+    const rooms = require("./room.data.json");
+    const activeRooms = new Map();
+    if (rooms.length > 0) {
+      activeRooms.set(rooms[0].name, true);
+    }
+    const requestedRooms = {
+      ...rooms.reduce(
+        (_rooms, room) => ({
+          ..._rooms,
+          [room.name]: {
+            adult: 0,
+            child: 0
+          }
+        }),
+        {}
+      )
+    };
+    this.setState({ rooms, activeRooms, requestedRooms });
+  }
+
+  toggleRoomActivation = ({ event }) => {
+    const { name, checked: isActive } = event.target;
+    const { rooms } = this.state;
     const index = findIndex(rooms, { name });
     const activeRooms = new Map();
     activeRooms.set(name, isActive);
@@ -24,7 +47,17 @@ class App extends Component {
     this.setState({
       activeRooms
     });
-  }
+  };
+
+  updateRequestedRooms = ({ name, data }) => {
+    const { requestedRooms } = this.state;
+    this.setState({
+      requestedRooms: {
+        ...requestedRooms,
+        [name]: { ...requestedRooms[name], ...data }
+      }
+    });
+  };
 
   handleFormSubmit = event => {
     event.preventDefault();
@@ -32,6 +65,11 @@ class App extends Component {
   };
 
   render() {
+    const { rooms, activeRooms } = this.state;
+    // Only render component if there's room data
+    if (!rooms || !activeRooms) {
+      return null;
+    }
     return (
       <section className="App">
         <header className="App-header" role="banner">
@@ -41,7 +79,7 @@ class App extends Component {
         <main className="room-block" role="main">
           <form className="room-block__form" onSubmit={this.handleFormSubmit}>
             <fieldset className="room-block__form__room--container">
-              {rooms.map((room, index) => (
+              {this.state.rooms.map((room, index) => (
                 <div key={room.key} className="room-block__form__room--wrapper">
                   <Room
                     name={room.name}
@@ -49,6 +87,7 @@ class App extends Component {
                     isActive={this.state.activeRooms.get(room.name)}
                     isRequired={index === 0}
                     onToggleActivation={this.toggleRoomActivation}
+                    updateRequestedRooms={this.updateRequestedRooms}
                     availability={room.availability}
                   />
                 </div>
