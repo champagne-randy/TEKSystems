@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Dropdown from "react-dropdown";
-import { get, range } from "lodash";
+import { range } from "lodash";
 import { compose, withProps } from "recompose";
 import { Validate } from "./utils";
 import "./Room.scss";
@@ -38,8 +38,8 @@ const Room = ({
           className="room__dropdown"
           options={options.adult}
           onChange={onSelect}
-          value={get(options, "adult[0]", null)}
-          placeholder="-"
+          value={options.adult[0]}
+          placeholder={`${options.adult[0]}`}
           disabled={!isActive}
         />
       </section>
@@ -53,8 +53,8 @@ const Room = ({
           className="room__dropdown"
           options={options.child}
           onChange={onSelect}
-          value={get(options, "child[0]", null)}
-          placeholder="-"
+          value={options.child[0]}
+          placeholder={`${options.child[0]}`}
           disabled={!isActive}
         />
       </section>
@@ -72,8 +72,8 @@ Room.propTypes = {
     child: Validate.prop.greaterThanZero
   }).isRequired,
   options: PropTypes.shape({
-    adult: PropTypes.arrayOf(PropTypes.number),
-    child: PropTypes.arrayOf(PropTypes.number)
+    adult: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
+    child: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired
   }).isRequired
 };
 
