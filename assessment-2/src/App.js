@@ -64,8 +64,15 @@ class RoomForm extends Component {
 
   handleFormSubmit = event => {
     event.preventDefault();
-    console.log("Submitted!", this.state.requestedRooms);
-    alert(`Submitted!\n\n${JSON.stringify(this.state.requestedRooms)}`);
+    const rooms = Array.from(this.state.activeRooms).reduceRight(
+      (_rooms, room) => ({
+        ..._rooms,
+        [room]: this.state.requestedRooms[room]
+      }),
+      {}
+    );
+    console.log("Submitted!", rooms);
+    alert(`Submitted!\n\n${JSON.stringify(rooms)}`);
   };
 
   render() {
