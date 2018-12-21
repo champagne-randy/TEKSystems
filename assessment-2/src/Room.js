@@ -26,6 +26,7 @@ const Room = ({
     className={classNames("room", {
       room__disabled: !isActive
     })}
+    data-testid="room"
   >
     <header className="room__header">
       <ShouldShow shouldShow={!isRequired}>
@@ -35,6 +36,7 @@ const Room = ({
           id={`${name}__activation`}
           checked={isActive || isRequired}
           onChange={event => onToggleActivation({ event })}
+          data-testid="room__header__checkbox"
         />
       </ShouldShow>
       <label htmlFor={`${name}__activation`}>
@@ -45,6 +47,7 @@ const Room = ({
       className={classNames("room__requests", {
         room__requests__active: isActive || isRequired
       })}
+      data-testid="room__requests"
     >
       <section>
         <h3>
@@ -53,13 +56,14 @@ const Room = ({
           (18+)
         </h3>
         <Dropdown
-          className="room__dropdown"
+          className="room__requests__dropdown"
           options={options.adult}
           onChange={event =>
             updateRequestedRooms({ name, data: { adult: event.value } })
           }
           value={{ label: requestedRooms.adult, value: requestedRooms.adult }}
           disabled={!isActive && !isRequired}
+          data-testid="room__requests_dropdown--adult"
         />
       </section>
       <section>
@@ -76,6 +80,7 @@ const Room = ({
           }
           value={{ label: requestedRooms.child, value: requestedRooms.child }}
           disabled={!isActive && !isRequired}
+          data-testid="room__requests_dropdown--child"
         />
       </section>
     </main>

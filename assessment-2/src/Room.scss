@@ -40,15 +40,11 @@
     section {
       width: 45%;
     }
+    &__dropdown {
+      // height: 20px;
+      .Dropdown-disabled {
+        background-color: #f0f0f0;
+      }
+    }
   }
-}
-
-// TODO:
-// - fold this into parent style scope
-.room__dropdown {
-  // height: 20px;
-}
-
-.Dropdown-disabled {
-  background-color: #f0f0f0;
 }
