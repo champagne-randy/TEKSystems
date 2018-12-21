@@ -9,23 +9,22 @@ import { Validate } from "./utils";
 import "react-dropdown/style.css";
 import "./Room.scss";
 
-// TODO:
-// - replace all sections with fieldsets
-// - why can I set placeholder dynamically for the dropdowns?
-// - should isActive automagically be true if isRequired?
 const Room = ({
   name,
   label,
   isActive = false,
   isRequired = false,
   onToggleActivation,
+  requestedRooms,
   updateRequestedRooms,
   options
 }) => (
-  <section
+  <div
     className={classNames("room", {
       room__disabled: !isActive
     })}
+    data-testid="room"
+    role="group"
   >
     <header className="room__header">
       <ShouldShow shouldShow={!isRequired}>
@@ -33,8 +32,9 @@ const Room = ({
           type="checkbox"
           name={name}
           id={`${name}__activation`}
-          checked={isActive || isRequired}
+          checked={isActive}
           onChange={event => onToggleActivation({ event })}
+          data-testid="room__header__checkbox"
         />
       </ShouldShow>
       <label htmlFor={`${name}__activation`}>
@@ -43,45 +43,46 @@ const Room = ({
     </header>
     <main
       className={classNames("room__requests", {
-        room__requests__active: isActive || isRequired
+        room__requests__active: isActive
       })}
+      data-testid="room__requests"
     >
-      <section>
+      <div role="group">
         <h3>
           Adults
           <br />
           (18+)
         </h3>
         <Dropdown
-          className="room__dropdown"
+          className="room__requests__dropdown"
           options={options.adult}
           onChange={event =>
             updateRequestedRooms({ name, data: { adult: event.value } })
           }
-          value={options.adult[0]}
-          placeholder="1"
-          disabled={!isActive && !isRequired}
+          value={{ label: requestedRooms.adult, value: requestedRooms.adult }}
+          disabled={!isActive}
+          data-testid="room__requests_dropdown--adult"
         />
-      </section>
-      <section>
+      </div>
+      <div role="group">
         <h3>
           Children
           <br />
           (0 - 17)
         </h3>
         <Dropdown
-          className="room__dropdown"
+          className="room__requests__dropdown"
           options={options.child}
           onChange={event =>
             updateRequestedRooms({ name, data: { child: event.value } })
           }
-          value={options.child[0]}
-          placeholder="1"
-          disabled={!isActive && !isRequired}
+          value={{ label: requestedRooms.child, value: requestedRooms.child }}
+          disabled={!isActive}
+          data-testid="room__requests_dropdown--child"
         />
-      </section>
+      </div>
     </main>
-  </section>
+  </div>
 );
 
 Room.propTypes = {
@@ -90,6 +91,10 @@ Room.propTypes = {
   isActive: PropTypes.bool,
   isRequired: PropTypes.bool,
   onToggleActivation: PropTypes.func.isRequired,
+  requestedRooms: PropTypes.shape({
+    adult: PropTypes.number.isRequired,
+    child: PropTypes.number.isRequired
+  }).isRequired,
   updateRequestedRooms: PropTypes.func.isRequired,
   availability: PropTypes.shape({
     adult: Validate.prop.greaterThanZero,
@@ -102,10 +107,11 @@ Room.propTypes = {
 };
 
 export default compose(
-  withProps(({ availability }) => ({
+  withProps(({ isActive, isRequired, availability }) => ({
+    isActive: isActive || isRequired,
     options: {
-      adult: range(1, availability.adult + 1),
-      child: range(1, availability.child + 1)
+      adult: range(0, availability.adult + 1),
+      child: range(0, availability.child + 1)
     }
   }))
 )(Room);

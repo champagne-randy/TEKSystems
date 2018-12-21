@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import { findIndex } from "lodash";
 import logo from "./logo.svg";
-import Room from "./Room";
+import RoomRequestForm from "./RoomRequestForm";
 import "./App.scss";
 
 class App extends Component {
   constructor() {
     super();
-    this.state = { rooms: [], activeRooms: new Map(), requestedRooms: {} };
+    this.state = { rooms: [], activeRooms: new Set(), requestedRooms: {} };
     this.toggleRoomActivation = this.toggleRoomActivation.bind(this);
     this.updateRequestedRooms = this.updateRequestedRooms.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
@@ -64,11 +64,19 @@ class App extends Component {
 
   handleFormSubmit = event => {
     event.preventDefault();
-    console.log("Submitted!");
+    const rooms = Array.from(this.state.activeRooms).reduceRight(
+      (_rooms, room) => ({
+        ..._rooms,
+        [room]: this.state.requestedRooms[room]
+      }),
+      {}
+    );
+    console.log("Submitted!", rooms);
+    alert(`Submitted!\n\n${JSON.stringify(rooms)}`);
   };
 
   render() {
-    const { rooms, activeRooms } = this.state;
+    const { rooms, activeRooms, requestedRooms } = this.state;
     // Note:
     // - I chose to only render component if there's room data
     // - This behavior can easily be changed i.e. to render an empy/disabled state
@@ -81,27 +89,15 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1>Hilton Assessment 2</h1>
         </header>
-        <main className="room-block" role="main">
-          <form className="room-block__form" onSubmit={this.handleFormSubmit}>
-            <fieldset className="room-block__form__room--container">
-              {rooms.map((room, index) => (
-                <div key={room.key} className="room-block__form__room--wrapper">
-                  <Room
-                    name={room.name}
-                    label={room.label}
-                    isActive={activeRooms.has(room.name)}
-                    isRequired={index === 0}
-                    onToggleActivation={this.toggleRoomActivation}
-                    updateRequestedRooms={this.updateRequestedRooms}
-                    availability={room.availability}
-                  />
-                </div>
-              ))}
-            </fieldset>
-            <button className="room-block__form__submit" type="submit">
-              Submit
-            </button>
-          </form>
+        <main className="room-request-form__container" role="main">
+          <RoomRequestForm
+            rooms={rooms}
+            activeRooms={activeRooms}
+            requestedRooms={requestedRooms}
+            toggleRoomActivation={this.toggleRoomActivation}
+            updateRequestedRooms={this.updateRequestedRooms}
+            handleFormSubmit={this.handleFormSubmit}
+          />
         </main>
       </section>
     );

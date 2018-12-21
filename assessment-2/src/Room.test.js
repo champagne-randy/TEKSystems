@@ -1,19 +1,109 @@
 import React from "react";
-import { shallow } from "enzyme";
-import { render } from "react-testing-library";
+import { mount } from "enzyme";
 import Room from "./Room";
 
-it("renders <Room/> without crashing", () => {
-  shallow(<Room />);
-});
+const setup = propOverrides => {
+  const room = {
+    name: "room-1",
+    key: "room1",
+    label: "Room 1",
+    availability: {
+      adult: 5,
+      child: 3
+    }
+  };
 
-// it("renders Hilton logo", () => {
-//   const wrapper = shallow(<Room />);
-//   const _logo = <img src={logo} className="Room-logo" alt="logo" />;
-//   expect(wrapper.contains(_logo)).toEqual(true);
-// });
-//
-// it("renders app title", () => {
-//   const { getByText } = render(<Room />);
-//   expect(getByText("Hilton Assessment 2")).toBeInTheDocument();
-// });
+  const props = {
+    name: room.name,
+    label: room.label,
+    isActive: true,
+    isRequired: false,
+    onToggleActivation: jest.fn(),
+    requestedRooms: { adult: 0, child: 0 },
+    updateRequestedRooms: jest.fn(),
+    availability: room.availability,
+    ...propOverrides
+  };
+
+  const wrapper = mount(<Room {...props} />);
+
+  return {
+    wrapper,
+    props,
+    checkbox: wrapper.find("[data-testid='room__header__checkbox']"),
+    roomRequests: wrapper.find("[data-testid='room__requests']"),
+    dropdownAdult: wrapper.find(
+      "[data-testid='room__requests_dropdown--adult']"
+    ),
+    dropdownChild: wrapper.find(
+      "[data-testid='room__requests_dropdown--child']"
+    )
+  };
+};
+
+describe("<Room />: structure", () => {
+  it("is enabled when isRequired=true & isActive=true", () => {
+    const {
+      wrapper,
+      checkbox,
+      roomRequests,
+      dropdownAdult,
+      dropdownChild
+    } = setup({
+      isRequired: true
+    });
+
+    expect(wrapper.exists());
+    expect(checkbox.exists()).toBe(false);
+    expect(dropdownAdult.exists());
+    expect(dropdownChild.exists());
+
+    expect(roomRequests.hasClass("room__requests__active"));
+    expect(dropdownAdult.hasClass("Dropdown-disabled")).toBe(false);
+    expect(dropdownChild.hasClass("Dropdown-disabled")).toBe(false);
+  });
+
+  it.skip("is enabled when isRequired=true & isActive=false", () => {});
+
+  it("is enabled when isActive=true", () => {
+    const {
+      wrapper,
+      checkbox,
+      roomRequests,
+      dropdownAdult,
+      dropdownChild
+    } = setup({
+      isActive: true
+    });
+
+    expect(wrapper.exists());
+    expect(checkbox.exists());
+    expect(dropdownAdult.exists());
+    expect(dropdownChild.exists());
+
+    expect(roomRequests.hasClass("room__requests__active"));
+    expect(dropdownAdult.hasClass("Dropdown-disabled")).toBe(false);
+    expect(dropdownChild.hasClass("Dropdown-disabled")).toBe(false);
+  });
+
+  it("is disabled when isActive=false", () => {
+    const {
+      wrapper,
+      checkbox,
+      roomRequests,
+      dropdownAdult,
+      dropdownChild
+    } = setup({
+      isActive: false
+    });
+
+    expect(wrapper.exists());
+    expect(checkbox.exists());
+    expect(dropdownAdult.exists());
+    expect(dropdownChild.exists());
+
+    expect(roomRequests.hasClass("room__requests__active")).toBe(false);
+    expect(dropdownAdult.hasClass("Dropdown-disabled"));
+    expect(dropdownChild.hasClass("Dropdown-disabled"));
+  });
+});

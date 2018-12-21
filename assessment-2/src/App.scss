@@ -1,5 +1,5 @@
 .App {
-  width: fit-content;
+  width: 80vw;
   min-height: 100vh;
   margin: 20px auto 40px auto;
   text-align: center;
@@ -34,39 +34,12 @@
   }
 }
 
-.room-block {
-  width: 100%;
-  display: block;
-  text-align: left;
-  &__form {
-    width: 100%;
-    border: none;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    justify-content: center;
-    align-items: flex-start;
-    &__room--container {
-      width: 100%;
-      margin: 0;
-      padding: 0;
-      border: none;
-      display: flex;
-      flex-direction: row;
-      flex-wrap: nowrap;
-      justify-content: space-between;
-      align-items: flex-start;
-    }
-    &__room--wrapper {
-      // width: 100px;
-      height: fit-content;
-      display: inline-flex;
-      margin: 0;
-      margin-bottom: 20px;
-      padding: 0;
-    }
-    &__submit {
-      background-color: #dbdbe3;
-    }
-  }
+.room-request-form__container {
+  width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
 }

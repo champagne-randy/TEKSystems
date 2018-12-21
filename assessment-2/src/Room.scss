@@ -4,6 +4,7 @@
   height: 100%;
   padding: 10px;
   border-radius: 5px;
+  border: solid 5px #e7e7e7;
   background-color: #e7e7e7;
   display: flex;
   flex-direction: column;
@@ -12,7 +13,7 @@
   align-items: space-around;
   font-size: 9px;
   &__disabled {
-    border: solid 5px #cdd0df;
+    border-color: #cdd0df;
     background-color: #dbdbe3;
   }
   &__header {
@@ -28,27 +29,23 @@
   &__requests {
     width: 100%;
     height: fit-content;
-    padding-bottom: 15px;
+    padding-bottom: 10px;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: space-around;
     align-items: flex-start;
+    text-align: left;
     &__active {
       background-color: #ffffff;
     }
-    section {
+    div[role="group"] {
       width: 45%;
     }
+    &__dropdown {
+      .Dropdown-disabled {
+        background-color: #f0f0f0;
+      }
+    }
   }
-}
-
-// TODO:
-// - fold this into parent style scope
-.room__dropdown {
-  // height: 20px;
-}
-
-.Dropdown-disabled {
-  background-color: #f0f0f0;
 }

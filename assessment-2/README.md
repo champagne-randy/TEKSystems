@@ -1,3 +1,34 @@
+# Implementation Notes
+
+Below is a brief overview of my design & implementation strategy
+
+
+## Component architecture
+
+I separated state & handlers concerns from presentational ones [according to best practices](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0). This to increase modularity making it easy to integrate this component. I also implemented [custom prop validators](/src/utils.js) to provide granular type-checking
+
+
+## State Management
+
+Here I only used React to manage form state. Further consideration is required when integrating this component. Can easily adjust to use apollo-link-state or redux.
+
+
+## Styling
+
+- I used SASS pre-processor & [BEM Framework](http://getbem.com/introduction/) in order to keep style rules modular. This keeps css rules contained in scope while maintaining semantic id & class selectors
+- Grid layout powered by Flexbox. Keeps styling easy to reason about
+- You'l notice I wrapped control groups in `<div role="group>` elements instead of `<fieldset>`. [There's known bug that}(https://stackoverflow.com/a/28078860) that makes `display: flex` not work on fieldsets. Setting the role should help assistive devices understand the grouping
+
+
+## Testing
+
+Current test coverage unfortunately isn't optimal. This is a critical area I would focus on next.
+
+
+
+
+
+# Running project
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
