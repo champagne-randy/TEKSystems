@@ -4,7 +4,7 @@ import logo from "./logo.svg";
 import Room from "./Room";
 import "./App.scss";
 
-class App extends Component {
+class RoomForm extends Component {
   constructor() {
     super();
     this.state = { rooms: [], activeRooms: new Map(), requestedRooms: {} };
@@ -65,6 +65,7 @@ class App extends Component {
   handleFormSubmit = event => {
     event.preventDefault();
     console.log("Submitted!", this.state.requestedRooms);
+    alert(`Submitted!\n\n${JSON.stringify(this.state.requestedRooms)}`);
   };
 
   render() {
@@ -109,4 +110,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default RoomForm;

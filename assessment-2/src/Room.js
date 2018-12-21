@@ -9,9 +9,6 @@ import { Validate } from "./utils";
 import "react-dropdown/style.css";
 import "./Room.scss";
 
-// TODO:
-// - replace all sections with fieldsets
-// - should isActive automagically be true if isRequired?
 const Room = ({
   name,
   label,
@@ -35,7 +32,7 @@ const Room = ({
           type="checkbox"
           name={name}
           id={`${name}__activation`}
-          checked={isActive || isRequired}
+          checked={isActive}
           onChange={event => onToggleActivation({ event })}
           data-testid="room__header__checkbox"
         />
@@ -46,7 +43,7 @@ const Room = ({
     </header>
     <main
       className={classNames("room__requests", {
-        room__requests__active: isActive || isRequired
+        room__requests__active: isActive
       })}
       data-testid="room__requests"
     >
@@ -63,7 +60,7 @@ const Room = ({
             updateRequestedRooms({ name, data: { adult: event.value } })
           }
           value={{ label: requestedRooms.adult, value: requestedRooms.adult }}
-          disabled={!isActive && !isRequired}
+          disabled={!isActive}
           data-testid="room__requests_dropdown--adult"
         />
       </div>
@@ -80,7 +77,7 @@ const Room = ({
             updateRequestedRooms({ name, data: { child: event.value } })
           }
           value={{ label: requestedRooms.child, value: requestedRooms.child }}
-          disabled={!isActive && !isRequired}
+          disabled={!isActive}
           data-testid="room__requests_dropdown--child"
         />
       </div>
@@ -110,7 +107,8 @@ Room.propTypes = {
 };
 
 export default compose(
-  withProps(({ availability }) => ({
+  withProps(({ isActive, isRequired, availability }) => ({
+    isActive: isActive || isRequired,
     options: {
       adult: range(0, availability.adult + 1),
       child: range(0, availability.child + 1)

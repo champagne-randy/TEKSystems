@@ -1,7 +1,6 @@
 import React from "react";
 import { mount } from "enzyme";
 import Room from "./Room";
-// import sinon from "sinon";
 
 const setup = propOverrides => {
   const room = {
@@ -106,20 +105,5 @@ describe("<Room />: structure", () => {
     expect(roomRequests.hasClass("room__requests__active")).toBe(false);
     expect(dropdownAdult.hasClass("Dropdown-disabled"));
     expect(dropdownChild.hasClass("Dropdown-disabled"));
-  });
-});
-
-describe("<Room />: behavior", () => {
-  it.skip("updates roomRequests when isActive=true", () => {
-    const { wrapper, props, dropdownAdult, dropdownChild } = setup({
-      isActive: true
-    });
-
-    dropdownAdult.instance().value = 1;
-    dropdownAdult.simulate("change", { target: { value: 3 } });
-    // expect(dropdownAdult.prop("value")).to.equal(3);
-    // dropdownAdult.simulate("click");
-    // expect(wrapper.updateRequestedRooms).toHave.property("callCount", 1);
-    expect(wrapper.prop("updateRequestedRooms")).toHaveBeenCalledTimes(1);
   });
 });
