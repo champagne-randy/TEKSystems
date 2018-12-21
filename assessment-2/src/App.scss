@@ -34,7 +34,7 @@
   }
 }
 
-.room-block {
+.room-request-form__container {
   width: 800px;
   margin: 0 auto;
   display: flex;
@@ -42,38 +42,4 @@
   flex-wrap: wrap;
   justify-content: center;
   align-items: flex-start;
-  &__form {
-    width: 100%;
-    border: none;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    justify-content: center;
-    align-items: flex-start;
-    &__room--container {
-      width: 100%;
-      border: none;
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-      justify-content: flex-start;
-      align-items: flex-start;
-      .room-block__form__room--wrapper {
-        display: inline-block;
-        width: 24%;
-        flex-basis: 75px;
-        margin: 0;
-        margin-right: 10px;
-        margin-bottom: 20px;
-        padding: 0;
-        &:last-child {
-          margin-right: 0;
-          align-self: auto;
-        }
-      }
-    }
-    &__submit {
-      background-color: #dbdbe3;
-    }
-  }
 }

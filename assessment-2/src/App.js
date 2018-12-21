@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import { findIndex } from "lodash";
 import logo from "./logo.svg";
-import Room from "./Room";
+import RoomRequestForm from "./RoomRequestForm";
 import "./App.scss";
 
-class RoomForm extends Component {
+class App extends Component {
   constructor() {
     super();
-    this.state = { rooms: [], activeRooms: new Map(), requestedRooms: {} };
+    this.state = { rooms: [], activeRooms: new Set(), requestedRooms: {} };
     this.toggleRoomActivation = this.toggleRoomActivation.bind(this);
     this.updateRequestedRooms = this.updateRequestedRooms.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
@@ -89,32 +89,19 @@ class RoomForm extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1>Hilton Assessment 2</h1>
         </header>
-        <main className="room-block" role="main">
-          <form className="room-block__form" onSubmit={this.handleFormSubmit}>
-            <div className="room-block__form__room--container" role="group">
-              {rooms.map((room, index) => (
-                <div key={room.key} className="room-block__form__room--wrapper">
-                  <Room
-                    name={room.name}
-                    label={room.label}
-                    isActive={activeRooms.has(room.name)}
-                    isRequired={index === 0}
-                    onToggleActivation={this.toggleRoomActivation}
-                    requestedRooms={requestedRooms[room.name]}
-                    updateRequestedRooms={this.updateRequestedRooms}
-                    availability={room.availability}
-                  />
-                </div>
-              ))}
-            </div>
-            <button className="room-block__form__submit" type="submit">
-              Submit
-            </button>
-          </form>
+        <main className="room-request-form__container" role="main">
+          <RoomRequestForm
+            rooms={rooms}
+            activeRooms={activeRooms}
+            requestedRooms={requestedRooms}
+            toggleRoomActivation={this.toggleRoomActivation}
+            updateRequestedRooms={this.updateRequestedRooms}
+            handleFormSubmit={this.handleFormSubmit}
+          />
         </main>
       </section>
     );
   }
 }
 
-export default RoomForm;
+export default App;
