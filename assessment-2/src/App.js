@@ -68,7 +68,7 @@ class App extends Component {
   };
 
   render() {
-    const { rooms, activeRooms } = this.state;
+    const { rooms, activeRooms, requestedRooms } = this.state;
     // Note:
     // - I chose to only render component if there's room data
     // - This behavior can easily be changed i.e. to render an empy/disabled state
@@ -92,6 +92,7 @@ class App extends Component {
                     isActive={activeRooms.has(room.name)}
                     isRequired={index === 0}
                     onToggleActivation={this.toggleRoomActivation}
+                    requestedRooms={requestedRooms[room.name]}
                     updateRequestedRooms={this.updateRequestedRooms}
                     availability={room.availability}
                   />

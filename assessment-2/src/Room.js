@@ -11,7 +11,6 @@ import "./Room.scss";
 
 // TODO:
 // - replace all sections with fieldsets
-// - why can I set placeholder dynamically for the dropdowns?
 // - should isActive automagically be true if isRequired?
 const Room = ({
   name,
@@ -19,6 +18,7 @@ const Room = ({
   isActive = false,
   isRequired = false,
   onToggleActivation,
+  requestedRooms,
   updateRequestedRooms,
   options
 }) => (
@@ -58,8 +58,7 @@ const Room = ({
           onChange={event =>
             updateRequestedRooms({ name, data: { adult: event.value } })
           }
-          value={options.adult[0]}
-          placeholder="1"
+          value={{ label: requestedRooms.adult, value: requestedRooms.adult }}
           disabled={!isActive && !isRequired}
         />
       </section>
@@ -75,8 +74,7 @@ const Room = ({
           onChange={event =>
             updateRequestedRooms({ name, data: { child: event.value } })
           }
-          value={options.child[0]}
-          placeholder="1"
+          value={{ label: requestedRooms.child, value: requestedRooms.child }}
           disabled={!isActive && !isRequired}
         />
       </section>
@@ -90,6 +88,10 @@ Room.propTypes = {
   isActive: PropTypes.bool,
   isRequired: PropTypes.bool,
   onToggleActivation: PropTypes.func.isRequired,
+  requestedRooms: PropTypes.shape({
+    adult: PropTypes.number.isRequired,
+    child: PropTypes.number.isRequired
+  }).isRequired,
   updateRequestedRooms: PropTypes.func.isRequired,
   availability: PropTypes.shape({
     adult: Validate.prop.greaterThanZero,
