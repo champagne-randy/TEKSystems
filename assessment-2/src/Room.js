@@ -22,11 +22,12 @@ const Room = ({
   updateRequestedRooms,
   options
 }) => (
-  <section
+  <div
     className={classNames("room", {
       room__disabled: !isActive
     })}
     data-testid="room"
+    role="group"
   >
     <header className="room__header">
       <ShouldShow shouldShow={!isRequired}>
@@ -49,7 +50,7 @@ const Room = ({
       })}
       data-testid="room__requests"
     >
-      <section>
+      <div role="group">
         <h3>
           Adults
           <br />
@@ -65,15 +66,15 @@ const Room = ({
           disabled={!isActive && !isRequired}
           data-testid="room__requests_dropdown--adult"
         />
-      </section>
-      <section>
+      </div>
+      <div role="group">
         <h3>
           Children
           <br />
           (0 - 17)
         </h3>
         <Dropdown
-          className="room__dropdown"
+          className="room__requests__dropdown"
           options={options.child}
           onChange={event =>
             updateRequestedRooms({ name, data: { child: event.value } })
@@ -82,9 +83,9 @@ const Room = ({
           disabled={!isActive && !isRequired}
           data-testid="room__requests_dropdown--child"
         />
-      </section>
+      </div>
     </main>
-  </section>
+  </div>
 );
 
 Room.propTypes = {
@@ -111,8 +112,8 @@ Room.propTypes = {
 export default compose(
   withProps(({ availability }) => ({
     options: {
-      adult: range(1, availability.adult + 1),
-      child: range(1, availability.child + 1)
+      adult: range(0, availability.adult + 1),
+      child: range(0, availability.child + 1)
     }
   }))
 )(Room);

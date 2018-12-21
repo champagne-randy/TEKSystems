@@ -1,5 +1,5 @@
 .App {
-  width: fit-content;
+  width: 80vw;
   min-height: 100vh;
   margin: 20px auto 40px auto;
   text-align: center;
@@ -35,9 +35,13 @@
 }
 
 .room-block {
-  width: 100%;
-  display: block;
-  text-align: left;
+  width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
   &__form {
     width: 100%;
     border: none;
@@ -48,22 +52,25 @@
     align-items: flex-start;
     &__room--container {
       width: 100%;
-      margin: 0;
-      padding: 0;
       border: none;
       display: flex;
       flex-direction: row;
-      flex-wrap: nowrap;
-      justify-content: space-between;
+      flex-wrap: wrap;
+      justify-content: flex-start;
       align-items: flex-start;
-    }
-    &__room--wrapper {
-      // width: 100px;
-      height: fit-content;
-      display: inline-flex;
-      margin: 0;
-      margin-bottom: 20px;
-      padding: 0;
+      .room-block__form__room--wrapper {
+        display: inline-block;
+        width: 24%;
+        flex-basis: 75px;
+        margin: 0;
+        margin-right: 10px;
+        margin-bottom: 20px;
+        padding: 0;
+        &:last-child {
+          margin-right: 0;
+          align-self: auto;
+        }
+      }
     }
     &__submit {
       background-color: #dbdbe3;

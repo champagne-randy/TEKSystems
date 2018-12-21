@@ -64,7 +64,7 @@ class App extends Component {
 
   handleFormSubmit = event => {
     event.preventDefault();
-    console.log("Submitted!");
+    console.log("Submitted!", this.state.requestedRooms);
   };
 
   render() {
@@ -83,7 +83,7 @@ class App extends Component {
         </header>
         <main className="room-block" role="main">
           <form className="room-block__form" onSubmit={this.handleFormSubmit}>
-            <fieldset className="room-block__form__room--container">
+            <div className="room-block__form__room--container" role="group">
               {rooms.map((room, index) => (
                 <div key={room.key} className="room-block__form__room--wrapper">
                   <Room
@@ -98,7 +98,7 @@ class App extends Component {
                   />
                 </div>
               ))}
-            </fieldset>
+            </div>
             <button className="room-block__form__submit" type="submit">
               Submit
             </button>
