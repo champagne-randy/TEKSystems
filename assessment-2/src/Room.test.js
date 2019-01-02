@@ -20,7 +20,7 @@ const setup = propOverrides => {
     isRequired: false,
     onToggleActivation: jest.fn(),
     requestedRooms: { adult: 0, child: 0 },
-    updateRequestedRooms: jest.fn(),
+    updateRoomRequests: jest.fn(),
     availability: room.availability,
     ...propOverrides
   };

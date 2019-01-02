@@ -14,9 +14,9 @@ const Room = ({
   label,
   isActive = false,
   isRequired = false,
-  onToggleActivation,
-  requestedRooms,
-  updateRequestedRooms,
+  toggleRoomActivation,
+  requests,
+  updateRoomRequests,
   options
 }) => (
   <div
@@ -33,7 +33,7 @@ const Room = ({
           name={name}
           id={`${name}__activation`}
           checked={isActive}
-          onChange={event => onToggleActivation({ event })}
+          onChange={event => toggleRoomActivation({ event })}
           data-testid="room__header__checkbox"
         />
       </ShouldShow>
@@ -56,10 +56,13 @@ const Room = ({
         <Dropdown
           className="room__requests__dropdown"
           options={options.adult}
-          onChange={event =>
-            updateRequestedRooms({ name, data: { adult: event.value } })
+          onChange={({ value }) =>
+            updateRoomRequests({
+              name,
+              data: { adult: { value, touched: true } }
+            })
           }
-          value={{ label: requestedRooms.adult, value: requestedRooms.adult }}
+          value={{ label: requests.adult.value, value: requests.adult.value }}
           disabled={!isActive}
           data-testid="room__requests_dropdown--adult"
         />
@@ -73,10 +76,13 @@ const Room = ({
         <Dropdown
           className="room__requests__dropdown"
           options={options.child}
-          onChange={event =>
-            updateRequestedRooms({ name, data: { child: event.value } })
+          onChange={({ value }) =>
+            updateRoomRequests({
+              name,
+              data: { child: { value, touched: true } }
+            })
           }
-          value={{ label: requestedRooms.child, value: requestedRooms.child }}
+          value={{ label: requests.child.value, value: requests.child.value }}
           disabled={!isActive}
           data-testid="room__requests_dropdown--child"
         />
@@ -90,12 +96,19 @@ Room.propTypes = {
   label: PropTypes.string.isRequired,
   isActive: PropTypes.bool,
   isRequired: PropTypes.bool,
-  onToggleActivation: PropTypes.func.isRequired,
-  requestedRooms: PropTypes.shape({
-    adult: PropTypes.number.isRequired,
-    child: PropTypes.number.isRequired
+  toggleRoomActivation: PropTypes.func.isRequired,
+  requests: PropTypes.shape({
+    adult: PropTypes.shape({
+      value: PropTypes.number.isRequired,
+      touched: PropTypes.bool.isRequired
+    }).isRequired,
+    child: PropTypes.shape({
+      value: PropTypes.number.isRequired,
+      touched: PropTypes.bool.isRequired
+    }).isRequired,
+    valid: PropTypes.bool.isRequired
   }).isRequired,
-  updateRequestedRooms: PropTypes.func.isRequired,
+  updateRoomRequests: PropTypes.func.isRequired,
   availability: PropTypes.shape({
     adult: Validate.prop.greaterThanZero,
     child: Validate.prop.greaterThanZero

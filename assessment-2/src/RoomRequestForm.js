@@ -9,21 +9,21 @@ const RoomRequestForm = ({
   activeRooms,
   requestedRooms,
   toggleRoomActivation,
-  updateRequestedRooms,
+  updateRoomRequests,
   handleFormSubmit
 }) => (
   <form className="room-request-form" onSubmit={handleFormSubmit}>
     <div className="room-request-form__room__container" role="group">
-      {rooms.map((room, index) => (
+      {rooms.map(room => (
         <div key={room.key} className="room-request-form__room__wrapper">
           <Room
             name={room.name}
             label={room.label}
-            isActive={activeRooms.has(room.name)}
-            isRequired={index === 0}
-            onToggleActivation={toggleRoomActivation}
-            requestedRooms={requestedRooms[room.name]}
-            updateRequestedRooms={updateRequestedRooms}
+            isActive={room.isActive}
+            isRequired={room.isRequired}
+            requests={room.requests}
+            toggleRoomActivation={toggleRoomActivation}
+            updateRoomRequests={updateRoomRequests}
             availability={room.availability}
           />
         </div>
@@ -44,16 +44,24 @@ RoomRequestForm.propTypes = {
       availability: PropTypes.shape({
         adult: PropTypes.number.isRequired,
         child: PropTypes.number.isRequired
-      }).isRequired
+      }).isRequired,
+      requests: PropTypes.shape({
+        adult: PropTypes.shape({
+          value: PropTypes.number.isRequired,
+          touched: PropTypes.bool.isRequired
+        }).isRequired,
+        child: PropTypes.shape({
+          value: PropTypes.number.isRequired,
+          touched: PropTypes.bool.isRequired
+        }).isRequired,
+        valid: PropTypes.bool.isRequired
+      }).isRequired,
+      isActive: PropTypes.bool.isRequired,
+      isRequired: PropTypes.bool.isRequired
     }).isRequired
   ).isRequired,
-  activeRooms: Validate.prop.instanceOfSet,
-  // TODO:
-  // - make custom validator with dynamic keys
-  // - https://stackoverflow.com/a/34365401
-  requestedRooms: PropTypes.object.isRequired,
   toggleRoomActivation: PropTypes.func.isRequired,
-  updateRequestedRooms: PropTypes.func.isRequired,
+  updateRoomRequests: PropTypes.func.isRequired,
   handleFormSubmit: PropTypes.func.isRequired
 };
 

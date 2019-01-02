@@ -7,80 +7,89 @@ import "./App.scss";
 class App extends Component {
   constructor() {
     super();
-    this.state = { rooms: [], activeRooms: new Set(), requestedRooms: {} };
+    this.state = { rooms: [] };
     this.toggleRoomActivation = this.toggleRoomActivation.bind(this);
-    this.updateRequestedRooms = this.updateRequestedRooms.bind(this);
+    this.updateRoomRequests = this.updateRoomRequests.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
   }
 
+  // Note:
+  // - this is a stub for backend data fetch
+  // - can make Ajax call to a ReST backend here
+  // - can alternatively compose this component with Apollo HOC to fetch from GraphQL backend then map props
+  // TODO:
+  // - make API call a prop function
+  // - use async await to demo promise handling
   componentDidMount() {
-    // Note:
-    // - this is a stub for backend data fetch
-    // - can make Ajax call to a ReST backend here
-    // - can alternatively compose this component with Apollo HOC to fetch from GraphQL backend then map props
-    const rooms = require("./room.data.json");
-    const activeRooms = new Set();
-    if (rooms.length > 0) {
-      activeRooms.add(rooms[0].name);
-    }
-    const requestedRooms = {
-      ...rooms.reduce(
-        (_rooms, room) => ({
-          ..._rooms,
-          [room.name]: {
-            adult: 0,
-            child: 0
-          }
-        }),
-        {}
-      )
-    };
-    this.setState({ rooms, activeRooms, requestedRooms });
+    const payload = require("./room.data.json");
+    this.setState({
+      rooms: payload.map((room, idx) => ({
+        ...room,
+        requests: {
+          adult: {
+            value: 0,
+            touched: false
+          },
+          child: {
+            value: 0,
+            touched: false
+          },
+          valid: false
+        },
+        isActive: idx === 0,
+        isRequired: idx === 0
+      }))
+    });
   }
 
   toggleRoomActivation = ({ event }) => {
     const { name, checked: isActive } = event.target;
     const { rooms } = this.state;
     const index = findIndex(rooms, { name });
-    const activeRooms = new Set();
-    if (isActive) {
-      activeRooms.add(name);
-    }
-    rooms.slice(0, index).map(room => activeRooms.add(room.name));
     this.setState({
-      activeRooms
+      rooms: rooms.map((room, idx) => ({
+        ...room,
+        isActive: isActive ? idx <= index : idx < index
+      }))
     });
   };
 
-  updateRequestedRooms = ({ name, data }) => {
-    const { requestedRooms } = this.state;
+  updateRoomRequests = ({ name, data }) => {
     this.setState({
-      requestedRooms: {
-        ...requestedRooms,
-        [name]: { ...requestedRooms[name], ...data }
-      }
+      rooms: this.state.rooms.map(room => ({
+        ...room,
+        requests:
+          room.name === name
+            ? {
+                ...room.requests,
+                ...data
+              }
+            : room.requests
+      }))
     });
   };
 
   handleFormSubmit = event => {
     event.preventDefault();
-    const rooms = Array.from(this.state.activeRooms).reduceRight(
-      (_rooms, room) => ({
-        ..._rooms,
-        [room]: this.state.requestedRooms[room]
-      }),
-      {}
-    );
-    console.log("Submitted!", rooms);
-    alert(`Submitted!\n\n${JSON.stringify(rooms)}`);
+    const payload = this.state.rooms
+      .filter(room => room.isActive)
+      .map(room => ({
+        name: room.name,
+        requests: {
+          adult: room.requests.adult.value,
+          child: room.requests.child.value
+        }
+      }));
+    console.log("Submitted payload:");
+    console.dir(payload);
+    alert(`Submitted!\n\n${JSON.stringify(payload)}`);
   };
 
   render() {
-    const { rooms, activeRooms, requestedRooms } = this.state;
     // Note:
     // - I chose to only render component if there's room data
     // - This behavior can easily be changed i.e. to render an empy/disabled state
-    if (!rooms || !activeRooms) {
+    if (!this.state.rooms) {
       return null;
     }
     return (
@@ -91,11 +100,9 @@ class App extends Component {
         </header>
         <main className="room-request-form__container" role="main">
           <RoomRequestForm
-            rooms={rooms}
-            activeRooms={activeRooms}
-            requestedRooms={requestedRooms}
+            rooms={this.state.rooms}
             toggleRoomActivation={this.toggleRoomActivation}
-            updateRequestedRooms={this.updateRequestedRooms}
+            updateRoomRequests={this.updateRoomRequests}
             handleFormSubmit={this.handleFormSubmit}
           />
         </main>

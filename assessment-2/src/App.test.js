@@ -57,6 +57,6 @@ describe.skip("<App />: behavior", () => {
     dropdownAdult.update();
     expect(wrapper.exists());
     wrapper.update();
-    expect(props.updateRequestedRooms).toHave.property("callCount", 1);
+    expect(props.updateRoomRequests).toHave.property("callCount", 1);
   });
 });
