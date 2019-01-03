@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { findIndex } from "lodash";
 import logo from "./logo.svg";
 import RoomRequestForm from "./RoomRequestForm";
+import { Validate } from "./utils";
 import "./App.scss";
 
 class App extends Component {
@@ -34,7 +35,7 @@ class App extends Component {
             value: 0,
             touched: false
           },
-          valid: false
+          isValid: false
         },
         isActive: idx === 0,
         isRequired: idx === 0
@@ -62,7 +63,13 @@ class App extends Component {
           room.name === name
             ? {
                 ...room.requests,
-                ...data
+                ...data,
+                isValid: Validate.input.isValidRoomRequest({
+                  requests: {
+                    ...room.requests,
+                    ...data
+                  }
+                })
               }
             : room.requests
       }))
@@ -89,7 +96,7 @@ class App extends Component {
     // Note:
     // - I chose to only render component if there's room data
     // - This behavior can easily be changed i.e. to render an empy/disabled state
-    if (!this.state.rooms) {
+    if (this.state.rooms === 0) {
       return null;
     }
     return (

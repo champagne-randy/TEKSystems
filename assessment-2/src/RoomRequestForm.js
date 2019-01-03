@@ -1,15 +1,20 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { compose, withProps } from "recompose";
 import Room from "./Room";
-import { Validate } from "./utils";
 import "./RoomRequestForm.scss";
 
+// TODO:
+// - show message if user clicks on submit & form is invalid
+//  + should I use popper to create a tooltip for this?
+// - impl styling logic to show message when an input is invalid
 const RoomRequestForm = ({
   rooms,
   activeRooms,
   requestedRooms,
   toggleRoomActivation,
   updateRoomRequests,
+  isFormValid,
   handleFormSubmit
 }) => (
   <form className="room-request-form" onSubmit={handleFormSubmit}>
@@ -29,7 +34,11 @@ const RoomRequestForm = ({
         </div>
       ))}
     </div>
-    <button className="room-request-form__submit" type="submit">
+    <button
+      className="room-request-form__submit"
+      type="submit"
+      disabled={!isFormValid}
+    >
       Submit
     </button>
   </form>
@@ -54,7 +63,7 @@ RoomRequestForm.propTypes = {
           value: PropTypes.number.isRequired,
           touched: PropTypes.bool.isRequired
         }).isRequired,
-        valid: PropTypes.bool.isRequired
+        isValid: PropTypes.bool.isRequired
       }).isRequired,
       isActive: PropTypes.bool.isRequired,
       isRequired: PropTypes.bool.isRequired
@@ -62,7 +71,14 @@ RoomRequestForm.propTypes = {
   ).isRequired,
   toggleRoomActivation: PropTypes.func.isRequired,
   updateRoomRequests: PropTypes.func.isRequired,
-  handleFormSubmit: PropTypes.func.isRequired
+  handleFormSubmit: PropTypes.func.isRequired,
+  isFormValid: PropTypes.bool.isRequired
 };
 
-export default RoomRequestForm;
+export default compose(
+  withProps(({ rooms }) => ({
+    isFormValid: rooms
+      .filter(room => room.isActive)
+      .reduce((isValid, room) => isValid && room.requests.isValid, true)
+  }))
+)(RoomRequestForm);

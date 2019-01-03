@@ -96,6 +96,7 @@ Room.propTypes = {
   label: PropTypes.string.isRequired,
   isActive: PropTypes.bool,
   isRequired: PropTypes.bool,
+  isValid: PropTypes.bool,
   toggleRoomActivation: PropTypes.func.isRequired,
   requests: PropTypes.shape({
     adult: PropTypes.shape({
@@ -105,8 +106,7 @@ Room.propTypes = {
     child: PropTypes.shape({
       value: PropTypes.number.isRequired,
       touched: PropTypes.bool.isRequired
-    }).isRequired,
-    valid: PropTypes.bool.isRequired
+    }).isRequired
   }).isRequired,
   updateRoomRequests: PropTypes.func.isRequired,
   availability: PropTypes.shape({

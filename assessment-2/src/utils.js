@@ -25,5 +25,14 @@ export const Validate = {
             );
       }
     }
+  },
+  input: {
+    /*
+      for every active room
+      at least one adult or child room request must be greater than 0
+    */
+    isValidRoomRequest({ requests }) {
+      return requests.adult.value > 0 || requests.child.value > 0;
+    }
   }
 };
