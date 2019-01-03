@@ -62,7 +62,6 @@ const Room = ({
           (18+)
         </h3>
         <Dropdown
-          className="room__requests__dropdown"
           options={options.adult}
           onChange={({ value }) =>
             updateRoomRequests({
@@ -82,7 +81,6 @@ const Room = ({
           (0 - 17)
         </h3>
         <Dropdown
-          className="room__requests__dropdown"
           options={options.child}
           onChange={({ value }) =>
             updateRoomRequests({
@@ -96,14 +94,17 @@ const Room = ({
         />
       </div>
     </main>
-    <footer>
+    <footer className="room__requests__validation">
       <ShouldShow
         shouldShow={
-          (requests.adult.touched || requests.child.touched) &&
-          !requests.isValid
+          isActive &&
+          ((requests.adult.touched || requests.child.touched) &&
+            !requests.isValid)
         }
       >
-        <div role="alert">Please select at least 1 adult or child room</div>
+        <div className="room__requests__validation__message" role="alert">
+          Please select at least 1 adult or child room
+        </div>
       </ShouldShow>
     </footer>
   </section>
