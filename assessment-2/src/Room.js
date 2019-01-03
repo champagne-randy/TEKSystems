@@ -12,16 +12,24 @@ import "./Room.scss";
 const Room = ({
   name,
   label,
-  isActive = false,
-  isRequired = false,
+  isActive,
   toggleRoomActivation,
+  isRequired,
   requests,
   updateRoomRequests,
   options
 }) => (
-  <div
+  <section
     className={classNames("room", {
-      room__disabled: !isActive
+      room__disabled: !isActive,
+      room__valid:
+        isActive &&
+        (requests.adult.touched || requests.child.touched) &&
+        requests.isValid,
+      room__invalid:
+        isActive &&
+        (requests.adult.touched || requests.child.touched) &&
+        !requests.isValid
     })}
     data-testid="room"
     role="group"
@@ -88,15 +96,24 @@ const Room = ({
         />
       </div>
     </main>
-  </div>
+    <footer>
+      <ShouldShow
+        shouldShow={
+          (requests.adult.touched || requests.child.touched) &&
+          !requests.isValid
+        }
+      >
+        <div role="alert">Please select at least 1 adult or child room</div>
+      </ShouldShow>
+    </footer>
+  </section>
 );
 
 Room.propTypes = {
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
-  isActive: PropTypes.bool,
-  isRequired: PropTypes.bool,
-  isValid: PropTypes.bool,
+  isActive: PropTypes.bool.isRequired,
+  isRequired: PropTypes.bool.isRequired,
   toggleRoomActivation: PropTypes.func.isRequired,
   requests: PropTypes.shape({
     adult: PropTypes.shape({
@@ -120,8 +137,7 @@ Room.propTypes = {
 };
 
 export default compose(
-  withProps(({ isActive, isRequired, availability }) => ({
-    isActive: isActive || isRequired,
+  withProps(({ availability }) => ({
     options: {
       adult: range(0, availability.adult + 1),
       child: range(0, availability.child + 1)

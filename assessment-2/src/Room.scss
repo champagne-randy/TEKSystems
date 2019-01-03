@@ -16,6 +16,12 @@
     border-color: #cdd0df;
     background-color: #dbdbe3;
   }
+  &__valid {
+    border: solid 5px green;
+  }
+  &__invalid {
+    border: solid 5px red;
+  }
   &__header {
     display: flex;
     flex-direction: row;
