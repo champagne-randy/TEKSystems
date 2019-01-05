@@ -35,7 +35,7 @@ class App extends Component {
         ...room,
         requests: {
           adult: {
-            value: 0,
+            value: 1,
             touched: false
           },
           child: {

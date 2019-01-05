@@ -47,7 +47,7 @@ export function getDDOptsFromVacancies({
   vacancies: Vacancies;
 }) {
   return {
-    adult: range(0, vacancies.adult + 1).map(val => ({
+    adult: range(1, vacancies.adult + 1).map(val => ({
       label: `${val}`,
       value: `${val}`
     })),
