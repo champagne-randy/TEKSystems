@@ -49,37 +49,4 @@ const RoomRequestForm: StatelessComponent<RoomRequestFormProps> = props => {
   );
 };
 
-/*
-RoomRequestForm.propTypes = {
-  rooms: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      key: PropTypes.string.isRequired,
-      label: PropTypes.string.isRequired,
-      vacancies: PropTypes.shape({
-        adult: PropTypes.number.isRequired,
-        child: PropTypes.number.isRequired
-      }).isRequired,
-      requests: PropTypes.shape({
-        adult: PropTypes.shape({
-          value: PropTypes.number.isRequired,
-          touched: PropTypes.bool.isRequired
-        }).isRequired,
-        child: PropTypes.shape({
-          value: PropTypes.number.isRequired,
-          touched: PropTypes.bool.isRequired
-        }).isRequired,
-        isValid: PropTypes.bool.isRequired
-      }).isRequired,
-      isActive: PropTypes.bool.isRequired,
-      isRequired: PropTypes.bool.isRequired
-    }).isRequired
-  ).isRequired,
-  toggleRoomActivation: PropTypes.func.isRequired,
-  updateRoomRequests: PropTypes.func.isRequired,
-  handleFormSubmit: PropTypes.func.isRequired,
-  isFormValid: PropTypes.bool.isRequired
-};
-*/
-
 export default RoomRequestForm;

@@ -1,5 +1,4 @@
 import React, { StatelessComponent } from "react";
-import Dropdown from "react-dropdown";
 import classNames from "classnames";
 import { range } from "lodash";
 import { RoomProps } from "./interfaces";
@@ -121,34 +120,5 @@ const Room: StatelessComponent<RoomProps> = props => {
     </section>
   );
 };
-
-/*
-Room.propTypes = {
-  name: PropTypes.string.isRequired,
-  label: PropTypes.string.isRequired,
-  isActive: PropTypes.bool.isRequired,
-  isRequired: PropTypes.bool.isRequired,
-  toggleRoomActivation: PropTypes.func.isRequired,
-  requests: PropTypes.shape({
-    adult: PropTypes.shape({
-      value: PropTypes.number.isRequired,
-      touched: PropTypes.bool.isRequired
-    }).isRequired,
-    child: PropTypes.shape({
-      value: PropTypes.number.isRequired,
-      touched: PropTypes.bool.isRequired
-    }).isRequired
-  }).isRequired,
-  updateRoomRequests: PropTypes.func.isRequired,
-  vacancies: PropTypes.shape({
-    adult: Validate.prop.greaterThanZero,
-    child: Validate.prop.greaterThanZero
-  }).isRequired,
-  options: PropTypes.shape({
-    adult: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
-    child: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired
-  }).isRequired
-};
-*/
 
 export default Room;
