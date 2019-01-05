@@ -1,5 +1,5 @@
 import React, { PureComponent, FormEvent } from "react";
-import { findIndex } from "lodash";
+import { find, get, findIndex } from "lodash";
 import styled from "./styled-components";
 import Room from "./Room";
 import {
@@ -9,6 +9,7 @@ import {
   RequestsUpdateHandler,
   RoomRequestsSubmissionPayload
 } from "./types";
+import LocalStorage from "./LocalStorage";
 
 const Form = styled("form")`
   width: 100%;
@@ -45,20 +46,24 @@ const Wrapper = styled("div")`
 
 class RoomRequestForm extends PureComponent {
   // TODO:
-  // - hook into apollo cache instead of React state?
-  readonly state: RoomRequestFormState = { rooms: [] };
+  // - use apollo cache instead of React state?
+  readonly state: RoomRequestFormState;
 
   constructor(props: any) {
     super(props);
+
+    const stateFromStorage =
+      LocalStorage.isAvailable &&
+      JSON.parse(LocalStorage.get("RoomRequestFormState") || "[]");
+
+    this.state = {
+      rooms: (stateFromStorage && get(stateFromStorage, "rooms")) || []
+    };
     this.toggleRoomActivation = this.toggleRoomActivation.bind(this);
     this.updateRoomRequests = this.updateRoomRequests.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
   }
 
-  // TODO:
-  // - impl mock rest call with Axios
-  // - use async await to demo promise handling
-  // - cache form data in Apollo cache
   componentDidMount() {
     const payload = require("./room.data.json");
     this.setState({
@@ -69,7 +74,8 @@ class RoomRequestForm extends PureComponent {
           child: 0
         },
         isActive: idx === 0,
-        isRequired: idx === 0
+        isRequired: idx === 0,
+        ...find(this.state.rooms, { name: room.name })
       }))
     });
   }
@@ -102,11 +108,12 @@ class RoomRequestForm extends PureComponent {
     });
   };
 
-  // TODO:
-  // - cache form data in Apollo cache
-  // - impl mock rest call with Axios
   handleFormSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    LocalStorage.isAvailable &&
+      LocalStorage.set("RoomRequestFormState", JSON.stringify(this.state));
+
     const roomRequests: RoomRequestsSubmissionPayload[] = this.state.rooms
       .filter(room => room.isActive)
       .map(room => ({
