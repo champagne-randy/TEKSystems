@@ -1,14 +1,21 @@
-import React, { Component } from "react";
+import React, { Component, FormEvent } from "react";
 import { findIndex } from "lodash";
 import logo from "./logo.svg";
 import RoomRequestForm from "./RoomRequestForm";
 import { Validate } from "./utils";
+import {
+  RoomData,
+  AppState,
+  RoomActivationPayload,
+  RequestsUpdatePayload
+} from "./interfaces";
 import "./App.scss";
 
 class App extends Component {
-  constructor() {
-    super();
-    this.state = { rooms: [] };
+  readonly state: AppState = { rooms: [] };
+
+  constructor(props: any) {
+    super(props);
     this.toggleRoomActivation = this.toggleRoomActivation.bind(this);
     this.updateRoomRequests = this.updateRoomRequests.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
@@ -24,7 +31,7 @@ class App extends Component {
   componentDidMount() {
     const payload = require("./room.data.json");
     this.setState({
-      rooms: payload.map((room, idx) => ({
+      rooms: payload.map((room: RoomData, idx: number) => ({
         ...room,
         requests: {
           adult: {
@@ -43,8 +50,8 @@ class App extends Component {
     });
   }
 
-  toggleRoomActivation = ({ event }) => {
-    const { name, checked: isActive } = event.target;
+  toggleRoomActivation = (payload: RoomActivationPayload) => {
+    const { name, checked: isActive } = payload.event.target;
     const { rooms } = this.state;
     const index = findIndex(rooms, { name });
     this.setState({
@@ -55,7 +62,8 @@ class App extends Component {
     });
   };
 
-  updateRoomRequests = ({ name, data }) => {
+  updateRoomRequests = (payload: RequestsUpdatePayload) => {
+    const { name, data } = payload;
     this.setState({
       rooms: this.state.rooms.map(room => ({
         ...room,
@@ -76,7 +84,7 @@ class App extends Component {
     });
   };
 
-  handleFormSubmit = event => {
+  handleFormSubmit = ({ event }: { event: FormEvent<HTMLFormElement> }) => {
     event.preventDefault();
     const payload = this.state.rooms
       .filter(room => room.isActive)
@@ -96,7 +104,7 @@ class App extends Component {
     // Note:
     // - I chose to only render component if there's room data
     // - This behavior can easily be changed i.e. to render an empy/disabled state
-    if (this.state.rooms === 0) {
+    if (this.state.rooms.length === 0) {
       return null;
     }
     return (

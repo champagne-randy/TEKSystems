@@ -10,7 +10,7 @@ const setup = propOverrides => {
       name: "room-1",
       key: "room1",
       label: "Room 1",
-      availability: {
+      vacancies: {
         adult: 5,
         child: 3
       }

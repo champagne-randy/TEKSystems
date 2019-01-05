@@ -1,6 +1,9 @@
+import { Room, RoomRequests, Vacancies } from "./interfaces";
+import { range } from "lodash";
+
 export const Validate = {
   prop: {
-    greaterThanZero(props, propName, _componentName) {
+    greaterThanZero(props: any, propName: any, _componentName: any) {
       const componentName = _componentName || "ANONYMOUS";
       if (props[propName]) {
         let value = props[propName];
@@ -14,7 +17,7 @@ export const Validate = {
       }
       return null;
     },
-    instanceOfSet(props, propName, _componentName) {
+    instanceOfSet(props: any, propName: any, _componentName: any) {
       const componentName = _componentName || "ANONYMOUS";
       if (props[propName]) {
         let value = props[propName];
@@ -27,12 +30,30 @@ export const Validate = {
     }
   },
   input: {
-    /*
-      for every active room
-      at least one adult or child room request must be greater than 0
-    */
-    isValidRoomRequest({ requests }) {
+    isValidRoomRequest({ requests }: { requests: RoomRequests }) {
       return requests.adult.value > 0 || requests.child.value > 0;
     }
+  },
+  isRoomReqFormValid({ rooms }: { rooms: Room[] }) {
+    return rooms
+      .filter(room => room.isActive)
+      .reduce((isValid, room) => isValid && room.requests.isValid, true);
   }
 };
+
+export function getDDOptsFromVacancies({
+  vacancies
+}: {
+  vacancies: Vacancies;
+}) {
+  return {
+    adult: range(0, vacancies.adult + 1).map(val => ({
+      label: `${val}`,
+      value: `${val}`
+    })),
+    child: range(0, vacancies.child + 1).map(val => ({
+      label: `${val}`,
+      value: `${val}`
+    }))
+  };
+}

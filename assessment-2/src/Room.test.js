@@ -7,7 +7,7 @@ const setup = propOverrides => {
     name: "room-1",
     key: "room1",
     label: "Room 1",
-    availability: {
+    vacancies: {
       adult: 5,
       child: 3
     }
@@ -21,7 +21,7 @@ const setup = propOverrides => {
     onToggleActivation: jest.fn(),
     requestedRooms: { adult: 0, child: 0 },
     updateRoomRequests: jest.fn(),
-    availability: room.availability,
+    vacancies: room.vacancies,
     ...propOverrides
   };
 

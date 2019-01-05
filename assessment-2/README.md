@@ -20,6 +20,11 @@ Here I only used React to manage form state. Further consideration is required w
 - You'l notice I wrapped control groups in `<div role="group>` elements instead of `<fieldset>`. [There's known bug that}(https://stackoverflow.com/a/28078860) that makes `display: flex` not work on fieldsets. Setting the role should help assistive devices understand the grouping
 
 
+## Validation
+
+- Each active room must have at least 1 adult or 1 child
+- Room get marked as
+
 ## Testing
 
 Current test coverage unfortunately isn't optimal. This is a critical area I would focus on next.
