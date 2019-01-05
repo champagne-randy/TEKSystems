@@ -1,6 +1,7 @@
 import React, { StatelessComponent } from "react";
 import Dropdown from "react-dropdown";
 import classNames from "classnames";
+import { range } from "lodash";
 import { RoomProps } from "./interfaces";
 import { getDDOptsFromVacancies } from "./utils";
 import "react-dropdown/style.css";
@@ -62,48 +63,52 @@ const Room: StatelessComponent<RoomProps> = props => {
         data-testid="room__requests"
       >
         <div role="group">
-          <h3>
-            Adults
-            <br />
-            (18+)
-          </h3>
-          <Dropdown
-            options={options.adult}
-            onChange={({ value }) =>
-              updateRoomRequests({
-                name,
-                data: { adult: { value: +value, touched: true } }
-              })
-            }
-            value={{
-              label: `${requests.adult.value}`,
-              value: `${requests.adult.value}`
-            }}
+          <label htmlFor="room__requests_dropdown--adult">
+            <h3>
+              Adults
+              <br />
+              (18+)
+            </h3>
+          </label>
+          <select
+            id="room__requests_dropdown--adult"
+            className="room__requests__dropdown"
             disabled={!isActive}
             data-testid="room__requests_dropdown--adult"
-          />
+          >
+            {range(1, vacancies.adult + 1).map(value => (
+              <option
+                key={`room__requests__dropdown__option--adult-${value}`}
+                value={value}
+              >
+                {value}
+              </option>
+            ))}
+          </select>
         </div>
         <div role="group">
-          <h3>
-            Children
-            <br />
-            (0 - 17)
-          </h3>
-          <Dropdown
-            options={options.child}
-            onChange={({ value }) =>
-              updateRoomRequests({
-                name,
-                data: { child: { value: +value, touched: true } }
-              })
-            }
-            value={{
-              label: `${requests.child.value}`,
-              value: `${requests.child.value}`
-            }}
+          <label htmlFor="room__requests_dropdown--child">
+            <h3>
+              Children
+              <br />
+              (0 - 17)
+            </h3>
+          </label>
+          <select
+            id="room__requests_dropdown--child"
+            className="room__requests_dropdown"
             disabled={!isActive}
             data-testid="room__requests_dropdown--child"
-          />
+          >
+            {range(0, vacancies.child + 1).map(value => (
+              <option
+                key={`room__requests__dropdown__option--child-${value}`}
+                value={value}
+              >
+                {value}
+              </option>
+            ))}
+          </select>
         </div>
       </main>
       <footer className="room__requests__validation">

@@ -49,13 +49,9 @@
     div[role="group"] {
       width: 45%;
     }
-    & .Dropdown {
-      &-root {
-        box-sizing: border-box;
-        width: 95%;
-        margin: 0;
-      }
-      &-disabled {
+    &__dropdown {
+      width: 100%;
+      &:disabled {
         background-color: #f0f0f0;
       }
     }
