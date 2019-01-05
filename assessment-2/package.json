@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@types/styled-components": "4.1.4",
     "classnames": "2.2.6",
     "lodash": "4.17.11",
     "node-sass": "4.11.0",
@@ -10,23 +11,19 @@
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
     "react-scripts": "2.1.3",
-    "react-should-show": "1.0.0",
     "recompose": "0.30.0",
-    "sinon": "7.2.2"
+    "sinon": "7.2.2",
+    "styled-components": "4.1.3"
   },
   "scripts": {
     "start": "HTTPS=true react-scripts start",
-    "build": "react-scripts build",
+    "build": "rescripts build",
     "lint:js": "eslint --ext=js --ext=jsx --fix .",
     "lint:scss": "stylelint --config=.stylelintrc '**/*.scss'",
     "lint": "run-s lint:**",
-    "test:watch": "react-scripts test --coverage --watch",
-    "test:unit": "react-scripts test --coverage",
-    "test": "run-s lint test:unit",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
+    "test:watch": "rescripts test --coverage --watch",
+    "test:unit": "rescripts test --coverage",
+    "test": "run-s lint test:unit"
   },
   "browserslist": [
     ">0.2%",
@@ -34,7 +31,13 @@
     "not ie <= 11",
     "not op_mini all"
   ],
+  "rescripts": [
+    "env"
+  ],
   "devDependencies": {
+    "@babel/preset-typescript": "7.1.0",
+    "@rescripts/cli": "0.0.7",
+    "@rescripts/rescript-env": "0.0.3",
     "@types/classnames": "2.2.6",
     "@types/jest": "23.3.11",
     "@types/lodash": "4.14.119",
@@ -42,6 +45,7 @@
     "@types/react": "16.7.18",
     "@types/react-dom": "16.0.11",
     "@types/recompose": "0.30.2",
+    "babel-plugin-styled-components": "1.10.0",
     "enzyme": "3.8.0",
     "enzyme-adapter-react-16": "1.7.1",
     "eslint-config-prettier": "3.3.0",

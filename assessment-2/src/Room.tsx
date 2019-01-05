@@ -1,9 +1,11 @@
 import React, { StatelessComponent } from "react";
+// TODO:
+// - remove classnames after styled-components integration
+import styled, { css } from "./styled-components";
 import classNames from "classnames";
 import { range } from "lodash";
 import { RoomProps } from "./interfaces";
-import { getDDOptsFromVacancies } from "./utils";
-import "react-dropdown/style.css";
+// import { StyledRoom } from "./Room.styled";
 import "./Room.scss";
 
 const Room: StatelessComponent<RoomProps> = props => {
@@ -15,31 +17,16 @@ const Room: StatelessComponent<RoomProps> = props => {
     isRequired,
     vacancies,
     requests,
-    updateRoomRequests
+    updateRoomRequests,
+    className
   } = props;
 
   const showValidationError =
     isActive &&
     ((requests.adult.touched || requests.child.touched) && !requests.isValid);
 
-  const options = getDDOptsFromVacancies({ vacancies });
-
   return (
-    <section
-      className={classNames("room", {
-        room__disabled: !isActive,
-        room__valid:
-          isActive &&
-          (requests.adult.touched || requests.child.touched) &&
-          requests.isValid,
-        room__invalid:
-          isActive &&
-          (requests.adult.touched || requests.child.touched) &&
-          !requests.isValid
-      })}
-      data-testid="room"
-      role="group"
-    >
+    <section className={className} data-testid="room" role="group">
       <header className="room__header">
         {!isRequired && (
           <input
@@ -48,6 +35,7 @@ const Room: StatelessComponent<RoomProps> = props => {
             id={`${name}__activation`}
             checked={isActive}
             onChange={event => toggleRoomActivation({ event })}
+            onBlur={event => toggleRoomActivation({ event })}
             data-testid="room__header__checkbox"
           />
         )}
@@ -75,6 +63,17 @@ const Room: StatelessComponent<RoomProps> = props => {
             disabled={!isActive}
             data-testid="room__requests_dropdown--adult"
             onChange={event =>
+              updateRoomRequests({
+                name,
+                data: {
+                  adult: {
+                    value: +(event.target as HTMLSelectElement).value,
+                    touched: true
+                  }
+                }
+              })
+            }
+            onBlur={event =>
               updateRoomRequests({
                 name,
                 data: {
@@ -120,6 +119,17 @@ const Room: StatelessComponent<RoomProps> = props => {
                 }
               })
             }
+            onBlur={event =>
+              updateRoomRequests({
+                name,
+                data: {
+                  adult: {
+                    value: +(event.target as HTMLSelectElement).value,
+                    touched: true
+                  }
+                }
+              })
+            }
           >
             {range(0, vacancies.child + 1).map(value => (
               <option
@@ -143,4 +153,26 @@ const Room: StatelessComponent<RoomProps> = props => {
   );
 };
 
-export default Room;
+export const StyledRoom = styled(Room)`
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: solid 5px #e7e7e7;
+  background-color: #e7e7e7;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: space-around;
+  font-size: 9px;
+  ${props =>
+    !props.isActive &&
+    css`
+      border-color: #cdd0df;
+      background-color: #dbdbe3;
+    `}
+`;
+
+export default StyledRoom;

@@ -1,5 +1,4 @@
-import { Room, RoomRequests, Vacancies } from "./interfaces";
-import { range } from "lodash";
+import { Room, RoomRequests } from "./interfaces";
 
 export const Validate = {
   prop: {
@@ -40,20 +39,3 @@ export const Validate = {
       .reduce((isValid, room) => isValid && room.requests.isValid, true);
   }
 };
-
-export function getDDOptsFromVacancies({
-  vacancies
-}: {
-  vacancies: Vacancies;
-}) {
-  return {
-    adult: range(1, vacancies.adult + 1).map(val => ({
-      label: `${val}`,
-      value: `${val}`
-    })),
-    child: range(0, vacancies.child + 1).map(val => ({
-      label: `${val}`,
-      value: `${val}`
-    }))
-  };
-}
