@@ -101,12 +101,6 @@ class App extends Component {
   };
 
   render() {
-    // Note:
-    // - I chose to only render component if there's room data
-    // - This behavior can easily be changed i.e. to render an empy/disabled state
-    if (this.state.rooms.length === 0) {
-      return null;
-    }
     return (
       <section className="App">
         <header className="App-header" role="banner">

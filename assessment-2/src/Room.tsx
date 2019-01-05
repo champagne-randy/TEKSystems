@@ -74,6 +74,17 @@ const Room: StatelessComponent<RoomProps> = props => {
             className="room__requests__dropdown"
             disabled={!isActive}
             data-testid="room__requests_dropdown--adult"
+            onChange={event =>
+              updateRoomRequests({
+                name,
+                data: {
+                  adult: {
+                    value: +(event.target as HTMLSelectElement).value,
+                    touched: true
+                  }
+                }
+              })
+            }
           >
             {range(1, vacancies.adult + 1).map(value => (
               <option
@@ -98,6 +109,17 @@ const Room: StatelessComponent<RoomProps> = props => {
             className="room__requests_dropdown"
             disabled={!isActive}
             data-testid="room__requests_dropdown--child"
+            onChange={event =>
+              updateRoomRequests({
+                name,
+                data: {
+                  child: {
+                    value: +(event.target as HTMLSelectElement).value,
+                    touched: true
+                  }
+                }
+              })
+            }
           >
             {range(0, vacancies.child + 1).map(value => (
               <option

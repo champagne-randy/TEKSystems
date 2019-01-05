@@ -15,6 +15,13 @@ const RoomRequestForm: StatelessComponent<RoomRequestFormProps> = props => {
     handleFormSubmit
   } = props;
 
+  // Note:
+  // - I chose to only render component if there's room data
+  // - This behavior can easily be changed i.e. to render an empy/disabled state
+  if (rooms.length === 0) {
+    return null;
+  }
+
   const isFormValid = Validate.isRoomReqFormValid({ rooms });
 
   return (
