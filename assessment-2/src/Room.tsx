@@ -3,7 +3,7 @@ import styled, { css } from "./styled-components";
 import { range } from "lodash";
 import { RoomProps } from "./types";
 
-const Section = styled("section")<{ isActive?: boolean }>`
+const Section = styled("div")<{ isActive?: boolean }>`
   box-sizing: border-box;
   width: 100%;
   height: 100%;
@@ -25,7 +25,7 @@ const Section = styled("section")<{ isActive?: boolean }>`
     `}
 `;
 
-const Header = styled("header")`
+const Header = styled("div")`
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
@@ -37,7 +37,7 @@ const Checkbox = styled("input")`
   margin-right: 5px;
 `;
 
-const Main = styled("main")<{ isActive?: boolean }>`
+const Main = styled("div")<{ isActive?: boolean }>`
   box-sizing: border-box;
   width: 100%;
   height: fit-content;
@@ -85,25 +85,30 @@ const Room: StatelessComponent<RoomProps> = props => {
 
   return (
     <Section isActive={isActive} data-testid="room" role="group">
-      <Header className="room__header">
+      <Header role="group">
         {!isRequired && (
           <Checkbox
             type="checkbox"
+            id={`${name}__checkbox`}
             name={name}
-            id={`${name}__activation`}
+            data-testid={`${name}__checkbox`}
             checked={isActive}
-            onChange={event => toggleRoomActivation({ event })}
-            onBlur={event => toggleRoomActivation({ event })}
-            data-testid="room__header__checkbox"
+            onChange={toggleRoomActivation}
           />
         )}
-        <label htmlFor={`${name}__activation`}>
+        <label
+          htmlFor={`${name}__checkbox`}
+          data-testid={`${name}__checkbox__label`}
+        >
           <h2>{label}</h2>
         </label>
       </Header>
-      <Main data-testid="room__requests">
+      <Main data-testid={`${name}__requests`} role="group">
         <Fieldset role="group">
-          <label htmlFor="room__requests_dropdown--adult">
+          <label
+            htmlFor={`${name}__requests--adult`}
+            data-testid={`${name}__requests__label--adult`}
+          >
             <H3>
               Adults
               <br />
@@ -111,31 +116,17 @@ const Room: StatelessComponent<RoomProps> = props => {
             </H3>
           </label>
           <Dropdown
-            id="room__requests_dropdown--adult"
-            className="room__requests__dropdown"
+            id={`${name}__requests--adult`}
+            name={`${name}--adult`}
+            data-testid={`${name}__requests--adult`}
             disabled={!isActive}
-            data-testid="room__requests_dropdown--adult"
             value={requests.adult}
-            onChange={event =>
-              updateRoomRequests({
-                name,
-                data: {
-                  adult: +(event.target as HTMLSelectElement).value
-                }
-              })
-            }
-            onBlur={event =>
-              updateRoomRequests({
-                name,
-                data: {
-                  adult: +(event.target as HTMLSelectElement).value
-                }
-              })
-            }
+            onChange={updateRoomRequests}
+            onBlur={updateRoomRequests}
           >
             {range(1, vacancies.adult + 1).map(value => (
               <option
-                key={`room__requests__dropdown__option--adult-${value}`}
+                key={`${name}__requests__dropdown__option--adult-${value}`}
                 value={value}
               >
                 {value}
@@ -144,7 +135,10 @@ const Room: StatelessComponent<RoomProps> = props => {
           </Dropdown>
         </Fieldset>
         <Fieldset role="group">
-          <label htmlFor="room__requests_dropdown--child">
+          <label
+            htmlFor={`${name}__requests--child`}
+            data-testid={`${name}__requests__label--child`}
+          >
             <H3>
               Children
               <br />
@@ -152,31 +146,17 @@ const Room: StatelessComponent<RoomProps> = props => {
             </H3>
           </label>
           <Dropdown
-            id="room__requests_dropdown--child"
-            className="room__requests_dropdown"
+            id={`${name}__requests--child`}
+            name={`${name}--child`}
+            data-testid={`${name}__requests--child`}
             disabled={!isActive}
-            data-testid="room__requests_dropdown--child"
             value={requests.child}
-            onChange={event =>
-              updateRoomRequests({
-                name,
-                data: {
-                  child: +(event.target as HTMLSelectElement).value
-                }
-              })
-            }
-            onBlur={event =>
-              updateRoomRequests({
-                name,
-                data: {
-                  child: +(event.target as HTMLSelectElement).value
-                }
-              })
-            }
+            onChange={updateRoomRequests}
+            onBlur={updateRoomRequests}
           >
             {range(0, vacancies.child + 1).map(value => (
               <option
-                key={`room__requests__dropdown__option--child-${value}`}
+                key={`${name}__requests__dropdown__option--child-${value}`}
                 value={value}
               >
                 {value}

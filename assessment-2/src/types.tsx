@@ -1,3 +1,5 @@
+import { ChangeEvent } from "react";
+
 export interface Vacancies {
   adult: number;
   child: number;
@@ -25,29 +27,12 @@ export interface RoomRequestFormState {
   readonly rooms: Room[];
 }
 
-export interface RoomActivationPayload {
-  event: {
-    target: {
-      name: string;
-      checked: boolean;
-    };
-  };
-}
-
 export interface RoomActivationHandler {
-  (payload: RoomActivationPayload): void;
-}
-
-export interface RequestsUpdatePayload {
-  name: string;
-  data: {
-    adult?: number;
-    child?: number;
-  };
+  (event: ChangeEvent<HTMLInputElement>): void;
 }
 
 export interface RequestsUpdateHandler {
-  (payload: RequestsUpdatePayload): void;
+  (event: ChangeEvent<HTMLSelectElement>): void;
 }
 
 export interface RoomRequestsSubmissionPayload {

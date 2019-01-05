@@ -45,8 +45,6 @@ const Wrapper = styled("div")`
 `;
 
 class RoomRequestForm extends PureComponent {
-  // TODO:
-  // - use apollo cache instead of React state?
   readonly state: RoomRequestFormState;
 
   constructor(props: any) {
@@ -66,7 +64,7 @@ class RoomRequestForm extends PureComponent {
 
   componentDidMount() {
     const payload = require("./room.data.json");
-    this.setState({
+    this.setState((prevState: RoomRequestFormState) => ({
       rooms: payload.map((room: RoomData, idx: number) => ({
         ...room,
         requests: {
@@ -75,37 +73,38 @@ class RoomRequestForm extends PureComponent {
         },
         isActive: idx === 0,
         isRequired: idx === 0,
-        ...find(this.state.rooms, { name: room.name })
+        ...find(prevState.rooms, { name: room.name })
       }))
-    });
+    }));
   }
 
-  toggleRoomActivation: RoomActivationHandler = payload => {
-    const { name, checked: isActive } = payload.event.target;
+  toggleRoomActivation: RoomActivationHandler = event => {
+    const { name, checked: isActive } = event.target;
     const { rooms } = this.state;
     const index = findIndex(rooms, { name });
-    this.setState({
-      rooms: rooms.map((room, idx) => ({
+    this.setState((prevState: RoomRequestFormState) => ({
+      rooms: prevState.rooms.map((room, idx) => ({
         ...room,
         isActive: isActive ? idx <= index : idx < index
       }))
-    });
+    }));
   };
 
-  updateRoomRequests: RequestsUpdateHandler = payload => {
-    const { name, data } = payload;
-    this.setState({
-      rooms: this.state.rooms.map(room => ({
+  updateRoomRequests: RequestsUpdateHandler = event => {
+    event.persist();
+    const [name, requestField] = event.target.name.split("--");
+    this.setState((prevState: RoomRequestFormState) => ({
+      rooms: prevState.rooms.map(room => ({
         ...room,
         requests:
           room.name === name
             ? {
                 ...room.requests,
-                ...data
+                [requestField]: +event.target.value
               }
             : room.requests
       }))
-    });
+    }));
   };
 
   handleFormSubmit = (event: FormEvent<HTMLFormElement>) => {
