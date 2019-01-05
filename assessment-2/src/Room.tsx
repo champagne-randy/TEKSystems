@@ -1,7 +1,7 @@
 import React, { StatelessComponent } from "react";
 import styled, { css } from "./styled-components";
 import { range } from "lodash";
-import { RoomProps } from "./interfaces";
+import { RoomProps } from "./types";
 
 const Section = styled("section")<{ isActive?: boolean }>`
   box-sizing: border-box;
@@ -79,6 +79,7 @@ const Room: StatelessComponent<RoomProps> = props => {
     toggleRoomActivation,
     isRequired,
     vacancies,
+    requests,
     updateRoomRequests
   } = props;
 
@@ -114,14 +115,12 @@ const Room: StatelessComponent<RoomProps> = props => {
             className="room__requests__dropdown"
             disabled={!isActive}
             data-testid="room__requests_dropdown--adult"
+            value={requests.adult}
             onChange={event =>
               updateRoomRequests({
                 name,
                 data: {
-                  adult: {
-                    value: +(event.target as HTMLSelectElement).value,
-                    touched: true
-                  }
+                  adult: +(event.target as HTMLSelectElement).value
                 }
               })
             }
@@ -129,10 +128,7 @@ const Room: StatelessComponent<RoomProps> = props => {
               updateRoomRequests({
                 name,
                 data: {
-                  adult: {
-                    value: +(event.target as HTMLSelectElement).value,
-                    touched: true
-                  }
+                  adult: +(event.target as HTMLSelectElement).value
                 }
               })
             }
@@ -160,14 +156,12 @@ const Room: StatelessComponent<RoomProps> = props => {
             className="room__requests_dropdown"
             disabled={!isActive}
             data-testid="room__requests_dropdown--child"
+            value={requests.child}
             onChange={event =>
               updateRoomRequests({
                 name,
                 data: {
-                  child: {
-                    value: +(event.target as HTMLSelectElement).value,
-                    touched: true
-                  }
+                  child: +(event.target as HTMLSelectElement).value
                 }
               })
             }
@@ -175,10 +169,7 @@ const Room: StatelessComponent<RoomProps> = props => {
               updateRoomRequests({
                 name,
                 data: {
-                  adult: {
-                    value: +(event.target as HTMLSelectElement).value,
-                    touched: true
-                  }
+                  child: +(event.target as HTMLSelectElement).value
                 }
               })
             }

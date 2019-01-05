@@ -1,5 +1,3 @@
-import { FormEvent } from "react";
-
 export interface Vacancies {
   adult: number;
   child: number;
@@ -13,15 +11,8 @@ export interface RoomData {
 }
 
 export interface RoomRequests {
-  adult: {
-    value: number;
-    touched: boolean;
-  };
-  child: {
-    value: number;
-    touched: boolean;
-  };
-  isValid: false;
+  adult: number;
+  child: number;
 }
 
 export interface Room extends RoomData {
@@ -30,7 +21,7 @@ export interface Room extends RoomData {
   isRequired: boolean;
 }
 
-export interface AppState {
+export interface RoomRequestFormState {
   readonly rooms: Room[];
 }
 
@@ -50,8 +41,8 @@ export interface RoomActivationHandler {
 export interface RequestsUpdatePayload {
   name: string;
   data: {
-    adult?: { value: number; touched: boolean };
-    child?: { value: number; touched: boolean };
+    adult?: number;
+    child?: number;
   };
 }
 
@@ -59,8 +50,9 @@ export interface RequestsUpdateHandler {
   (payload: RequestsUpdatePayload): void;
 }
 
-export interface FormSubmitHandler {
-  ({ event }: { event: FormEvent<HTMLFormElement> }): void;
+export interface RoomRequestsSubmissionPayload {
+  name: string;
+  requests: RoomRequests;
 }
 
 export interface RoomProps {
@@ -71,11 +63,5 @@ export interface RoomProps {
   isRequired?: boolean;
   updateRoomRequests: RequestsUpdateHandler;
   vacancies: Vacancies;
-}
-
-export interface RoomRequestFormProps {
-  rooms: Room[];
-  toggleRoomActivation: RoomActivationHandler;
-  updateRoomRequests: RequestsUpdateHandler;
-  handleFormSubmit: FormSubmitHandler;
+  requests: RoomRequests;
 }
