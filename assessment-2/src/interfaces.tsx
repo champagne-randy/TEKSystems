@@ -72,7 +72,6 @@ export interface RoomProps {
   requests: RoomRequests;
   updateRoomRequests: RequestsUpdateHandler;
   vacancies: Vacancies;
-  className?: string;
 }
 
 export interface RoomRequestFormProps {

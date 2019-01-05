@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@types/styled-components": "4.1.4",
+    "@types/styled-components": "4.0.3",
     "classnames": "2.2.6",
     "lodash": "4.17.11",
     "node-sass": "4.11.0",
@@ -13,7 +13,7 @@
     "react-scripts": "2.1.3",
     "recompose": "0.30.0",
     "sinon": "7.2.2",
-    "styled-components": "4.1.3"
+    "styled-components": "4.0.3"
   },
   "scripts": {
     "start": "HTTPS=true react-scripts start",
@@ -35,7 +35,6 @@
     "env"
   ],
   "devDependencies": {
-    "@babel/preset-typescript": "7.1.0",
     "@rescripts/cli": "0.0.7",
     "@rescripts/rescript-env": "0.0.3",
     "@types/classnames": "2.2.6",

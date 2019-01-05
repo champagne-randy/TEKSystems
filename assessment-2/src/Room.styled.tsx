@@ -1,7 +1,6 @@
 import styled, { css } from "./styled-components";
-import { RoomProps } from "./interfaces";
 
-export const StyledRoom = styled("section")<RoomProps>`
+export const StyledRoom = styled("section")<{ isActive?: boolean }>`
   box-sizing: border-box;
   width: 100%;
   height: 100%;

@@ -1,11 +1,10 @@
 import React, { StatelessComponent } from "react";
 // TODO:
 // - remove classnames after styled-components integration
-import styled, { css } from "./styled-components";
 import classNames from "classnames";
 import { range } from "lodash";
 import { RoomProps } from "./interfaces";
-// import { StyledRoom } from "./Room.styled";
+import { StyledRoom } from "./Room.styled";
 import "./Room.scss";
 
 const Room: StatelessComponent<RoomProps> = props => {
@@ -17,8 +16,7 @@ const Room: StatelessComponent<RoomProps> = props => {
     isRequired,
     vacancies,
     requests,
-    updateRoomRequests,
-    className
+    updateRoomRequests
   } = props;
 
   const showValidationError =
@@ -26,7 +24,7 @@ const Room: StatelessComponent<RoomProps> = props => {
     ((requests.adult.touched || requests.child.touched) && !requests.isValid);
 
   return (
-    <section className={className} data-testid="room" role="group">
+    <StyledRoom isActive={isActive} data-testid="room" role="group">
       <header className="room__header">
         {!isRequired && (
           <input
@@ -149,30 +147,8 @@ const Room: StatelessComponent<RoomProps> = props => {
           </div>
         )}
       </footer>
-    </section>
+    </StyledRoom>
   );
 };
 
-export const StyledRoom = styled(Room)`
-  box-sizing: border-box;
-  width: 100%;
-  height: 100%;
-  padding: 10px;
-  border-radius: 5px;
-  border: solid 5px #e7e7e7;
-  background-color: #e7e7e7;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  justify-content: flex-start;
-  align-items: space-around;
-  font-size: 9px;
-  ${props =>
-    !props.isActive &&
-    css`
-      border-color: #cdd0df;
-      background-color: #dbdbe3;
-    `}
-`;
-
-export default StyledRoom;
+export default Room;
