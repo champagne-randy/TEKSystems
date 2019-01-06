@@ -69,7 +69,6 @@ export interface RoomProps {
   isActive?: boolean;
   toggleRoomActivation: RoomActivationHandler;
   isRequired?: boolean;
-  requests: RoomRequests;
   updateRoomRequests: RequestsUpdateHandler;
   vacancies: Vacancies;
 }

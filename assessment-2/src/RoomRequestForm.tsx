@@ -1,12 +1,41 @@
 import React, { StatelessComponent } from "react";
+import styled from "./styled-components";
 import Room from "./Room";
 import { RoomRequestFormProps } from "./interfaces";
-import { Validate } from "./utils";
-import "./RoomRequestForm.scss";
 
-// TODO:
-// - show message if user clicks on submit & form is invalid
-//  + should I use popper to create a tooltip for this?
+const Form = styled("form")`
+  width: 100%;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: flex-start;
+`;
+
+const Fieldset = styled("div")`
+  width: 100%;
+  border: none;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+`;
+
+const Wrapper = styled("div")`
+  display: inline-block;
+  width: 24%;
+  margin: 0;
+  margin-right: 10px;
+  margin-bottom: 20px;
+  padding: 0;
+  &:last-child {
+    margin-right: 0;
+    align-self: auto;
+  }
+`;
+
 const RoomRequestForm: StatelessComponent<RoomRequestFormProps> = props => {
   const {
     rooms,
@@ -22,37 +51,25 @@ const RoomRequestForm: StatelessComponent<RoomRequestFormProps> = props => {
     return null;
   }
 
-  const isFormValid = Validate.isRoomReqFormValid({ rooms });
-
   return (
-    <form
-      className="room-request-form"
-      onSubmit={event => handleFormSubmit({ event })}
-    >
-      <div className="room-request-form__room__container" role="group">
+    <Form onSubmit={event => handleFormSubmit({ event })}>
+      <Fieldset role="group">
         {rooms.map(room => (
-          <div key={room.key} className="room-request-form__room__wrapper">
+          <Wrapper key={room.key}>
             <Room
               name={room.name}
               label={room.label}
               isActive={room.isActive}
               isRequired={room.isRequired}
-              requests={room.requests}
               toggleRoomActivation={toggleRoomActivation}
               updateRoomRequests={updateRoomRequests}
               vacancies={room.vacancies}
             />
-          </div>
+          </Wrapper>
         ))}
-      </div>
-      <button
-        className="room-request-form__submit"
-        type="submit"
-        disabled={!isFormValid}
-      >
-        Submit
-      </button>
-    </form>
+      </Fieldset>
+      <button type="submit">Submit</button>
+    </Form>
   );
 };
 

@@ -1,11 +1,75 @@
 import React, { StatelessComponent } from "react";
-// TODO:
-// - remove classnames after styled-components integration
-import classNames from "classnames";
+import styled, { css } from "./styled-components";
 import { range } from "lodash";
 import { RoomProps } from "./interfaces";
-import { StyledRoom } from "./Room.styled";
-import "./Room.scss";
+
+const Section = styled("section")<{ isActive?: boolean }>`
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: solid 5px #e7e7e7;
+  background-color: #e7e7e7;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: space-around;
+  font-size: 9px;
+  ${props =>
+    !props.isActive &&
+    css`
+      border-color: #cdd0df;
+      background-color: #dbdbe3;
+    `}
+`;
+
+const Header = styled("header")`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: center;
+`;
+
+const Checkbox = styled("input")`
+  margin-right: 5px;
+`;
+
+const Main = styled("main")<{ isActive?: boolean }>`
+  box-sizing: border-box;
+  width: 100%;
+  height: fit-content;
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: flex-start;
+  justify-content: center;
+  text-align: left;
+  ${props =>
+    !props.isActive &&
+    css`
+      background-color: #ffffff;
+    `}
+`;
+
+const Fieldset = styled("div")`
+  width: 50%;
+`;
+
+const Dropdown = styled("select")<{ isActive?: boolean }>`
+  ${props =>
+    !props.isActive &&
+    css`
+      background-color: #f0f0f0;
+    `}
+`;
+
+const H3 = styled("h3")`
+  margin-top: 0;
+`;
 
 const Room: StatelessComponent<RoomProps> = props => {
   const {
@@ -15,19 +79,14 @@ const Room: StatelessComponent<RoomProps> = props => {
     toggleRoomActivation,
     isRequired,
     vacancies,
-    requests,
     updateRoomRequests
   } = props;
 
-  const showValidationError =
-    isActive &&
-    ((requests.adult.touched || requests.child.touched) && !requests.isValid);
-
   return (
-    <StyledRoom isActive={isActive} data-testid="room" role="group">
-      <header className="room__header">
+    <Section isActive={isActive} data-testid="room" role="group">
+      <Header className="room__header">
         {!isRequired && (
-          <input
+          <Checkbox
             type="checkbox"
             name={name}
             id={`${name}__activation`}
@@ -40,22 +99,17 @@ const Room: StatelessComponent<RoomProps> = props => {
         <label htmlFor={`${name}__activation`}>
           <h2>{label}</h2>
         </label>
-      </header>
-      <main
-        className={classNames("room__requests", {
-          room__requests__active: isActive
-        })}
-        data-testid="room__requests"
-      >
-        <div role="group">
+      </Header>
+      <Main data-testid="room__requests">
+        <Fieldset role="group">
           <label htmlFor="room__requests_dropdown--adult">
-            <h3>
+            <H3>
               Adults
               <br />
               (18+)
-            </h3>
+            </H3>
           </label>
-          <select
+          <Dropdown
             id="room__requests_dropdown--adult"
             className="room__requests__dropdown"
             disabled={!isActive}
@@ -91,17 +145,17 @@ const Room: StatelessComponent<RoomProps> = props => {
                 {value}
               </option>
             ))}
-          </select>
-        </div>
-        <div role="group">
+          </Dropdown>
+        </Fieldset>
+        <Fieldset role="group">
           <label htmlFor="room__requests_dropdown--child">
-            <h3>
+            <H3>
               Children
               <br />
               (0 - 17)
-            </h3>
+            </H3>
           </label>
-          <select
+          <Dropdown
             id="room__requests_dropdown--child"
             className="room__requests_dropdown"
             disabled={!isActive}
@@ -137,17 +191,10 @@ const Room: StatelessComponent<RoomProps> = props => {
                 {value}
               </option>
             ))}
-          </select>
-        </div>
-      </main>
-      <footer className="room__requests__validation">
-        {showValidationError && (
-          <div className="room__requests__validation__message" role="alert">
-            Please select at least 1 adult or child room
-          </div>
-        )}
-      </footer>
-    </StyledRoom>
+          </Dropdown>
+        </Fieldset>
+      </Main>
+    </Section>
   );
 };
 
