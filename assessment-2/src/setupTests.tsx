@@ -6,6 +6,7 @@ import "jest-dom/extend-expect";
 import chai from "chai";
 import chaiEnzyme from "chai-enzyme";
 import spies from "chai-spies";
+import axios from "axios";
 
 configure({ adapter: new Adapter() });
 
@@ -30,3 +31,5 @@ function myAwesomeDebug(wrapper: any) {
 chai.should();
 chai.use(spies);
 chai.use(chaiEnzyme(myAwesomeDebug));
+
+jest.mock("axios");

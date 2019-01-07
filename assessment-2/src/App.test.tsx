@@ -1,16 +1,16 @@
 import React from "react";
-import { shallow } from "enzyme";
+import { mount } from "enzyme";
 import { render } from "react-testing-library";
 import logo from "./logo.svg";
 import App from "./App";
 
 describe("<App />: structure", () => {
   it("renders <App/> without crashing", () => {
-    shallow(<App />);
+    mount(<App />);
   });
 
   it.skip("renders Hilton logo", () => {
-    const wrapper = shallow(<App />);
+    const wrapper = mount(<App />);
     const _logo = <img src={logo} />;
     expect(wrapper.contains(_logo)).toEqual(true);
   });

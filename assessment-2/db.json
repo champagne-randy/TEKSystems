@@ -1,51 +1,34 @@
 {
   "requests": [
-    [
-      {
-        "id": "cjqmmo2mw00003g5sfqt5zeze",
-        "name": "room-1",
-        "requests": {
-          "adult": 1,
-          "child": 0
+    {
+      "id": "cjqmxp9nu00003g5sw9cv0xd0",
+      "rooms": [
+        {
+          "id": "cjqmxp9nu00013g5s0bupp1v2",
+          "name": "room-1",
+          "requests": {
+            "adult": 1,
+            "child": 0
+          }
+        },
+        {
+          "id": "cjqmxp9nu00023g5s4oeqg7b5",
+          "name": "room-2",
+          "requests": {
+            "adult": 1,
+            "child": 0
+          }
+        },
+        {
+          "id": "cjqmxp9nu00033g5skpey4w90",
+          "name": "room-3",
+          "requests": {
+            "adult": 1,
+            "child": 3
+          }
         }
-      }
-    ],
-    [
-      {
-        "id": "cjqmmowfi00003g5sdcliysrd",
-        "name": "room-1",
-        "requests": {
-          "adult": 1,
-          "child": 0
-        }
-      }
-    ],
-    [
-      {
-        "id": "cjqmmpb7m00013g5sb1nv24ks",
-        "name": "room-1",
-        "requests": {
-          "adult": 1,
-          "child": 0
-        }
-      },
-      {
-        "id": "cjqmmpb7n00023g5sy14075uv",
-        "name": "room-2",
-        "requests": {
-          "adult": 1,
-          "child": 0
-        }
-      },
-      {
-        "id": "cjqmmpb7n00033g5s0opp579g",
-        "name": "room-3",
-        "requests": {
-          "adult": 1,
-          "child": 3
-        }
-      }
-    ]
+      ]
+    }
   ],
   "rooms": [
     {

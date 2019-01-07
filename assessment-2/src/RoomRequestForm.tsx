@@ -2,7 +2,8 @@ import React, { PureComponent, FormEvent } from "react";
 import { find, get, findIndex } from "lodash";
 import cuid from "cuid";
 import styled from "./styled-components";
-import API from "./axios";
+import axios, { AxiosResponse } from "axios";
+import { BACKEND_BASE_URL } from "./Constants";
 import Room from "./Room";
 import {
   RoomRequestFormState,
@@ -65,12 +66,23 @@ class RoomRequestForm extends PureComponent {
   }
 
   async componentDidMount() {
-    const payload = await API.get("rooms");
+    const CancelToken = axios.CancelToken;
+    const source = CancelToken && CancelToken.source();
 
-    console.dir(payload.data);
+    const resp: any = await axios
+      .get(`${new URL("/rooms", BACKEND_BASE_URL)}`, {
+        cancelToken: source && source.token
+      })
+      .catch(error => {
+        if (axios.isCancel(error)) {
+          console.log("Request has been cancelled");
+        } else {
+          console.error(error);
+        }
+      });
 
     this.setState((prevState: RoomRequestFormState) => ({
-      rooms: payload.data.map((room: RoomData, idx: number) => ({
+      rooms: resp.data.map((room: RoomData, idx: number) => ({
         ...room,
         requests: {
           adult: 1,
@@ -112,27 +124,47 @@ class RoomRequestForm extends PureComponent {
     }));
   };
 
-  handleFormSubmit = (event: FormEvent<HTMLFormElement>) => {
+  handleFormSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     LocalStorage.isAvailable &&
       LocalStorage.set("RoomRequestFormState", JSON.stringify(this.state));
 
-    const roomRequests: RoomRequestsSubmissionPayload[] = this.state.rooms
-      .filter(room => room.isActive)
-      .map(room => ({
-        // This is a hack to get json-server to accept payload
-        // - see: https://github.com/typicode/json-server/issues/798
-        id: cuid(),
-        name: room.name,
-        requests: room.requests
-      }));
+    // Manually generated ids are a hack to get json-server to accept payload
+    // - see: https://github.com/typicode/json-server/issues/798
+    const payload: RoomRequestsSubmissionPayload = {
+      id: cuid(),
+      rooms: this.state.rooms
+        .filter(room => room.isActive)
+        .map(room => ({
+          id: cuid(),
+          name: room.name,
+          requests: room.requests
+        }))
+    };
 
-    API.post("requests", roomRequests).then(response => {
-      console.log("RoomRequestForm submitted:");
-      console.dir(response);
-      alert(`RoomRequestForm submitted:\n${JSON.stringify(response, null, 4)}`);
-    });
+    const CancelToken = axios.CancelToken;
+    const source = CancelToken && CancelToken.source();
+    await axios
+      .post(`${new URL("/requests", BACKEND_BASE_URL)}`, payload, {
+        cancelToken: source && source.token
+      })
+      .then(resp => {
+        // if (axios.isCancel(resp)) {
+        //   console.log("Request has been cancelled");
+        // } else {
+        console.log("RoomRequestForm submitted:");
+        console.dir(resp);
+        alert(`RoomRequestForm submitted:\n${JSON.stringify(resp, null, 4)}`);
+        // }
+      })
+      .catch(error => {
+        if (axios.isCancel(error)) {
+          console.log("Request has been cancelled");
+        } else {
+          console.error(error);
+        }
+      });
   };
 
   render() {
