@@ -1,5 +1,6 @@
 import React, { PureComponent, FormEvent } from "react";
 import { find, get, findIndex } from "lodash";
+import cuid from "cuid";
 import styled from "./styled-components";
 import API from "./axios";
 import Room from "./Room";
@@ -120,6 +121,8 @@ class RoomRequestForm extends PureComponent {
     const roomRequests: RoomRequestsSubmissionPayload[] = this.state.rooms
       .filter(room => room.isActive)
       .map(room => ({
+        // This is a hack to get json-server to accept payload
+        id: cuid(),
         name: room.name,
         requests: room.requests
       }));

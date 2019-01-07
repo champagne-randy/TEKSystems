@@ -2,16 +2,54 @@
   "requests": [
     [
       {
+        "id": "cjqmmo2mw00003g5sfqt5zeze",
         "name": "room-1",
         "requests": {
           "adult": 1,
           "child": 0
         }
       }
+    ],
+    [
+      {
+        "id": "cjqmmowfi00003g5sdcliysrd",
+        "name": "room-1",
+        "requests": {
+          "adult": 1,
+          "child": 0
+        }
+      }
+    ],
+    [
+      {
+        "id": "cjqmmpb7m00013g5sb1nv24ks",
+        "name": "room-1",
+        "requests": {
+          "adult": 1,
+          "child": 0
+        }
+      },
+      {
+        "id": "cjqmmpb7n00023g5sy14075uv",
+        "name": "room-2",
+        "requests": {
+          "adult": 1,
+          "child": 0
+        }
+      },
+      {
+        "id": "cjqmmpb7n00033g5s0opp579g",
+        "name": "room-3",
+        "requests": {
+          "adult": 1,
+          "child": 3
+        }
+      }
     ]
   ],
   "rooms": [
     {
+      "id": "1",
       "name": "room-1",
       "key": "room1",
       "label": "Room 1",
@@ -21,6 +59,7 @@
       }
     },
     {
+      "id": "2",
       "name": "room-2",
       "key": "room2",
       "label": "Room 2",
@@ -30,6 +69,7 @@
       }
     },
     {
+      "id": "3",
       "name": "room-3",
       "key": "room3",
       "label": "Room 3",
@@ -39,6 +79,7 @@
       }
     },
     {
+      "id": "4",
       "name": "room-4",
       "key": "room4",
       "label": "Room 4",

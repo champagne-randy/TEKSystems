@@ -5,6 +5,7 @@
   "dependencies": {
     "@types/styled-components": "4.0.3",
     "axios": "0.18.0",
+    "cuid": "2.1.4",
     "lodash": "4.17.11",
     "node-sass": "4.11.0",
     "normalize.css": "8.0.1",
@@ -25,8 +26,7 @@
     "lint": "run-s lint:**",
     "test:watch": "rescripts test --coverage --watch",
     "test:unit": "rescripts test --coverage",
-    "test": "run-s lint test:unit",
-    "start:server": "npx json-server --watch db.json --port 3005"
+    "test": "run-s lint test:unit"
   },
   "browserslist": [
     ">0.2%",
