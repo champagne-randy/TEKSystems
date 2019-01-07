@@ -65,8 +65,11 @@ class RoomRequestForm extends PureComponent {
 
   async componentDidMount() {
     const payload = await API.get("rooms");
+
+    console.dir(payload.data);
+
     this.setState((prevState: RoomRequestFormState) => ({
-      rooms: payload.data.rooms.map((room: RoomData, idx: number) => ({
+      rooms: payload.data.map((room: RoomData, idx: number) => ({
         ...room,
         requests: {
           adult: 1,

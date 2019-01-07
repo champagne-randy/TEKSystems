@@ -61,8 +61,11 @@ describe("<Room />: structure", () => {
     expect(checkbox.exists()).toBe(false);
   });
 
+<<<<<<< HEAD
   it.skip("is enabled when isActive=true and isRequired=false", () => {});
 
+=======
+>>>>>>> testing
   it("is enabled when isActive=true", () => {
     const { wrapper, checkbox, dropdownAdult, dropdownChild } = setup();
 
@@ -93,8 +96,13 @@ describe("<Room />: behavior", () => {
 
     checkbox.should.not.be.checked();
     expect(toggleRoomActivation.mock.calls.length).toBe(0);
+<<<<<<< HEAD
     // checkbox.simulate("change", { target: { checked: true } });
     checkbox.simulate("click");
+=======
+    checkbox.simulate("change", { target: { checked: true } });
+    // checkbox.simulate("click");
+>>>>>>> testing
     checkbox.should.be.checked();
     expect(toggleRoomActivation.mock.calls.length).toBe(1);
   });

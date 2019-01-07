@@ -16,7 +16,9 @@
     "styled-components": "4.0.3"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start:client": "react-scripts start",
+    "start:server": "npx json-server --watch db.json --port 3005",
+    "start": "run-p start:server start:client",
     "build": "rescripts build",
     "lint:js": "eslint --ext=js --ext=jsx --fix .",
     "lint:scss": "stylelint --config=.stylelintrc '**/*.scss'",
@@ -95,7 +97,7 @@
     "collectCoverageFrom": [
       "src/**/*.{js,jsx,ts,tsx}",
       "!src/serviceWorker.js",
-      "!src/index.js",
+      "!src/index.tsx",
       "!node_modules/",
       "!coverage/"
     ],

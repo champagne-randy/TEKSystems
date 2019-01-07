@@ -1,4 +1,15 @@
 {
+  "requests": [
+    [
+      {
+        "name": "room-1",
+        "requests": {
+          "adult": 1,
+          "child": 0
+        }
+      }
+    ]
+  ],
   "rooms": [
     {
       "name": "room-1",
