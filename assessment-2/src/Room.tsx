@@ -75,13 +75,14 @@ const Room: StatelessComponent<RoomProps> = props => {
   const {
     name,
     label,
-    isActive,
     toggleRoomActivation,
     isRequired,
     vacancies,
     requests,
     updateRoomRequests
   } = props;
+
+  const isActive = props.isActive || props.isRequired;
 
   return (
     <Section isActive={isActive} data-testid="room" role="group">
