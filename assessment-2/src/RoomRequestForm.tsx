@@ -1,6 +1,7 @@
 import React, { PureComponent, FormEvent } from "react";
 import { find, get, findIndex } from "lodash";
 import styled from "./styled-components";
+import API from "./axios";
 import Room from "./Room";
 import {
   RoomRequestFormState,
@@ -62,10 +63,13 @@ class RoomRequestForm extends PureComponent {
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
   }
 
-  componentDidMount() {
-    const payload = require("./room.data.json");
+  async componentDidMount() {
+    const payload = await API.get("rooms");
+
+    console.dir(payload.data);
+
     this.setState((prevState: RoomRequestFormState) => ({
-      rooms: payload.map((room: RoomData, idx: number) => ({
+      rooms: payload.data.map((room: RoomData, idx: number) => ({
         ...room,
         requests: {
           adult: 1,
@@ -120,17 +124,14 @@ class RoomRequestForm extends PureComponent {
         requests: room.requests
       }));
 
-    console.log("RoomRequestForm submitted:");
-    console.dir(roomRequests);
-    alert(
-      `RoomRequestForm submitted:\n${JSON.stringify(roomRequests, null, 4)}`
-    );
+    API.post("requests", roomRequests).then(response => {
+      console.log("RoomRequestForm submitted:");
+      console.dir(response);
+      alert(`RoomRequestForm submitted:\n${JSON.stringify(response, null, 4)}`);
+    });
   };
 
   render() {
-    // Note:
-    // - I chose to only render component if there's room data
-    // - This behavior can easily be changed i.e. to render an empy/disabled state
     if (this.state.rooms.length === 0) {
       return null;
     }
