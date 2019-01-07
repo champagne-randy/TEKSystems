@@ -122,6 +122,7 @@ class RoomRequestForm extends PureComponent {
       .filter(room => room.isActive)
       .map(room => ({
         // This is a hack to get json-server to accept payload
+        // - see: https://github.com/typicode/json-server/issues/798
         id: cuid(),
         name: room.name,
         requests: room.requests

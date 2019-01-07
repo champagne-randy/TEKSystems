@@ -1,20 +1,8 @@
 import React from "react";
 import { mount } from "enzyme";
 import chai from "chai";
-import chaiEnzyme from "chai-enzyme";
-import spies from "chai-spies";
 import { RoomProps } from "./types";
 import Room from "./Room";
-
-function myAwesomeDebug(wrapper: any) {
-  let html = wrapper.html();
-  // console.log(html);
-  return html;
-}
-
-chai.should();
-chai.use(spies);
-chai.use(chaiEnzyme(myAwesomeDebug));
 
 const setup = (propOverrides?: RoomProps) => {
   const room = {
@@ -61,18 +49,15 @@ describe("<Room />: structure", () => {
     expect(checkbox.exists()).toBe(false);
   });
 
-<<<<<<< HEAD
-  it.skip("is enabled when isActive=true and isRequired=false", () => {});
-
-=======
->>>>>>> testing
   it("is enabled when isActive=true", () => {
     const { wrapper, checkbox, dropdownAdult, dropdownChild } = setup();
 
     expect(wrapper.exists());
     expect(checkbox.exists());
     expect(dropdownAdult.exists());
+    dropdownAdult.should.not.be.disabled();
     expect(dropdownChild.exists());
+    dropdownChild.should.not.be.disabled();
   });
 
   it("is disabled when isActive=false and isRequired=false", () => {
@@ -83,7 +68,9 @@ describe("<Room />: structure", () => {
     expect(wrapper.exists());
     expect(checkbox.exists());
     expect(dropdownAdult.exists());
+    dropdownAdult.should.be.disabled();
     expect(dropdownChild.exists());
+    dropdownChild.should.be.disabled();
   });
 });
 
@@ -96,14 +83,17 @@ describe("<Room />: behavior", () => {
 
     checkbox.should.not.be.checked();
     expect(toggleRoomActivation.mock.calls.length).toBe(0);
-<<<<<<< HEAD
-    // checkbox.simulate("change", { target: { checked: true } });
-    checkbox.simulate("click");
-=======
     checkbox.simulate("change", { target: { checked: true } });
-    // checkbox.simulate("click");
->>>>>>> testing
-    checkbox.should.be.checked();
     expect(toggleRoomActivation.mock.calls.length).toBe(1);
+  });
+
+  it("does not deactivae a required room", () => {
+    const { wrapper, checkbox, toggleRoomActivation } = setup({
+      isRequired: true
+    });
+    expect(wrapper.exists());
+
+    expect(checkbox.exists()).toBe(false);
+    expect(toggleRoomActivation.mock.calls.length).toBe(0);
   });
 });
