@@ -1,10 +1,12 @@
 import React from "react";
 import { mount } from "enzyme";
 import chai from "chai";
-import { RoomProps } from "./types";
 import Room from "./Room";
 
-const setup = (propOverrides?: RoomProps) => {
+const setup = (propOverrides?: {
+  isActive?: boolean;
+  isRequired?: boolean;
+}) => {
   const room = {
     name: "room-1",
     key: "room1",
@@ -15,7 +17,7 @@ const setup = (propOverrides?: RoomProps) => {
     }
   };
 
-  const props: RoomProps = {
+  const props: any = {
     name: room.name,
     label: room.label,
     isActive: true,
@@ -96,4 +98,6 @@ describe("<Room />: behavior", () => {
     expect(checkbox.exists()).toBe(false);
     expect(toggleRoomActivation.mock.calls.length).toBe(0);
   });
+
+  it.skip("updates roomRequests when isActive=true", () => {});
 });

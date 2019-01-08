@@ -173,6 +173,19 @@
           }
         }
       ]
+    },
+    {
+      "id": "cjqnbbf4o00043g5s6r8cn20q",
+      "roomRequests": [
+        {
+          "id": "cjqnbbf4o00053g5s2oatn3ax",
+          "name": "room-1",
+          "requests": {
+            "adult": 1,
+            "child": 2
+          }
+        }
+      ]
     }
   ],
   "rooms": [

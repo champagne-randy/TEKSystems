@@ -3,6 +3,7 @@ import Adapter from "enzyme-adapter-react-16";
 import "jest-enzyme";
 import "react-testing-library/cleanup-after-each";
 import "jest-dom/extend-expect";
+import "jest-styled-components";
 import chai from "chai";
 import chaiEnzyme from "chai-enzyme";
 import spies from "chai-spies";

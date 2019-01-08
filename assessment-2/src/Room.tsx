@@ -97,10 +97,7 @@ const Room: StatelessComponent<RoomProps> = props => {
             onChange={toggleRoomActivation}
           />
         )}
-        <label
-          htmlFor={`${name}__checkbox`}
-          data-testid={`${name}__checkbox__label`}
-        >
+        <label htmlFor={`${name}__checkbox`}>
           <h2>{label}</h2>
         </label>
       </Header>

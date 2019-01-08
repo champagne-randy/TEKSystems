@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<RoomRequestForm />: behavior room activation works as expected 1`] = `null`;
+
+exports[`<RoomRequestForm />: structure renders without crashing 1`] = `null`;
