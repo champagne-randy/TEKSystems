@@ -2,7 +2,8 @@ import React, { PureComponent, FormEvent } from "react";
 import { find, get, findIndex } from "lodash";
 import cuid from "cuid";
 import styled from "./styled-components";
-import axios, { AxiosResponse } from "axios";
+import { Observable, Subscription } from "rxjs";
+import axios from "axios";
 import { BACKEND_BASE_URL } from "./Constants";
 import Room from "./Room";
 import {
@@ -49,6 +50,8 @@ const Wrapper = styled("div")`
 
 class RoomRequestForm extends PureComponent {
   readonly state: RoomRequestFormState;
+  // signal = axios.CancelToken.source();
+  subscriptions: Subscription[] = [];
 
   constructor(props: any) {
     super(props);
@@ -66,33 +69,74 @@ class RoomRequestForm extends PureComponent {
   }
 
   async componentDidMount() {
-    const CancelToken = axios.CancelToken;
-    const source = CancelToken && CancelToken.source();
-
-    const resp: any = await axios
-      .get(`${new URL("/rooms", BACKEND_BASE_URL)}`, {
-        cancelToken: source && source.token
-      })
-      .catch(error => {
-        if (axios.isCancel(error)) {
-          console.log("Request has been cancelled");
-        } else {
+    /*
+    try {
+      const resp: any = await axios
+        .get(`${new URL("/rooms", BACKEND_BASE_URL)}`, {
+          cancelToken: this.signal && this.signal.token
+        })
+        .catch(error => {
           console.error(error);
-        }
-      });
+        });
 
-    this.setState((prevState: RoomRequestFormState) => ({
-      rooms: resp.data.map((room: RoomData, idx: number) => ({
-        ...room,
-        requests: {
-          adult: 1,
-          child: 0
-        },
-        isActive: idx === 0,
-        isRequired: idx === 0,
-        ...find(prevState.rooms, { name: room.name })
-      }))
-    }));
+      this.setState((prevState: RoomRequestFormState) => ({
+        rooms: resp.data.map((room: RoomData, idx: number) => ({
+          ...room,
+          requests: {
+            adult: 1,
+            child: 0
+          },
+          isActive: idx === 0,
+          isRequired: idx === 0,
+          ...find(prevState.rooms, { name: room.name })
+        }))
+      }));
+
+    } catch (err) {
+      if (axios.isCancel && axios.isCancel(err)) {
+        console.log("Error: ", err.message);
+      } else {
+        this.setState({ isLoading: false });
+      }
+    }
+    */
+
+    const observable$ = Observable.create((observer: any) => {
+      axios
+        .get(`${new URL("/rooms", BACKEND_BASE_URL)}`)
+        .then(response => {
+          observer.next(response.data);
+          observer.complete();
+        })
+        .catch(error => {
+          observer.error(error);
+        });
+    });
+
+    const subscription = observable$.subscribe({
+      next: (resp: any) =>
+        this.setState((prevState: RoomRequestFormState) => ({
+          rooms: resp.map((room: RoomData, idx: number) => ({
+            ...room,
+            requests: {
+              adult: 1,
+              child: 0
+            },
+            isActive: idx === 0,
+            isRequired: idx === 0,
+            ...find(prevState.rooms, { name: room.name })
+          }))
+        })),
+      complete: () =>
+        console.log("Initial data fetch complete for RoomRequestForm")
+    });
+
+    this.subscriptions.push(subscription);
+  }
+
+  componentWillUnmount() {
+    // this.signal.cancel("Api calls are being canceled");
+    this.subscriptions.map(sub => sub.unsubscribe());
   }
 
   toggleRoomActivation: RoomActivationHandler = event => {
@@ -134,7 +178,7 @@ class RoomRequestForm extends PureComponent {
     // - see: https://github.com/typicode/json-server/issues/798
     const payload: RoomRequestsSubmissionPayload = {
       id: cuid(),
-      rooms: this.state.rooms
+      roomRequests: this.state.rooms
         .filter(room => room.isActive)
         .map(room => ({
           id: cuid(),
@@ -143,28 +187,51 @@ class RoomRequestForm extends PureComponent {
         }))
     };
 
-    const CancelToken = axios.CancelToken;
-    const source = CancelToken && CancelToken.source();
-    await axios
-      .post(`${new URL("/requests", BACKEND_BASE_URL)}`, payload, {
-        cancelToken: source && source.token
-      })
-      .then(resp => {
-        // if (axios.isCancel(resp)) {
-        //   console.log("Request has been cancelled");
-        // } else {
+    /*
+    try {
+      await axios
+        .post(`${new URL("/requests", BACKEND_BASE_URL)}`, payload, {
+          // cancelToken: this.signal && this.signal.token
+        })
+        .then(resp => {
+          console.log("RoomRequestForm submitted:");
+          console.dir(resp);
+          alert(`RoomRequestForm submitted:\n${JSON.stringify(resp, null, 4)}`);
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    } catch (err) {
+      if (axios.isCancel && axios.isCancel(err)) {
+        console.log("Error: ", err.message);
+      } else {
+        this.setState({ isLoading: false });
+      }
+    }
+    */
+
+    const observable$ = Observable.create((observer: any) => {
+      axios
+        .post(`${new URL("/requests", BACKEND_BASE_URL)}`, payload)
+        .then(response => {
+          observer.next(response.data);
+          observer.complete();
+        })
+        .catch(error => {
+          observer.error(error);
+        });
+    });
+
+    const subscription = observable$.subscribe({
+      next: (resp: any) => {
         console.log("RoomRequestForm submitted:");
         console.dir(resp);
         alert(`RoomRequestForm submitted:\n${JSON.stringify(resp, null, 4)}`);
-        // }
-      })
-      .catch(error => {
-        if (axios.isCancel(error)) {
-          console.log("Request has been cancelled");
-        } else {
-          console.error(error);
-        }
-      });
+      },
+      complete: () => console.log("RoomRequestForm submission complete")
+    });
+
+    this.subscriptions.push(subscription);
   };
 
   render() {

@@ -37,7 +37,7 @@ export interface RequestsUpdateHandler {
 
 export interface RoomRequestsSubmissionPayload {
   id: string;
-  rooms: { id: string; name: string; requests: RoomRequests }[];
+  roomRequests: { id: string; name: string; requests: RoomRequests }[];
 }
 
 export interface RoomProps {

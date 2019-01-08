@@ -14,6 +14,13 @@ import "jest-dom/extend-expect";
 afterEach(cleanup);
 
 describe("<RoomRequestForm />: structure", () => {
+  it("renders <RoomRequestForm/> without crashing", () => {
+    const wrapper = mount(<RoomRequestForm />);
+    expect(wrapper.exists());
+  });
+});
+
+describe("<RoomRequestForm />: behavior", () => {
   it("renders <RoomRequestForm/> without crashing", async () => {
     const {
       container,
@@ -22,18 +29,13 @@ describe("<RoomRequestForm />: structure", () => {
       queryAllByTestId
     } = await waitForElement(() => render(<RoomRequestForm />));
 
-    // const checkboxes = await waitForElement(() =>
-    //   queryAllByTestId(/checkbox/, { exact: false })
-    // );
-    const checkboxes = queryAllByTestId(/checkbox/, { exact: false });
+    const checkboxes = await waitForElement(() =>
+      queryAllByTestId(/checkbox/i, { exact: false })
+    );
+    // const checkboxes = queryAllByTestId(/checkbox/, { exact: false });
     console.dir(checkboxes);
     expect(checkboxes).toHaveLength(4);
   });
-});
 
-describe("<RoomRequestForm />: behavior", () => {
-  it("updates roomRequests when isActive=true", () => {
-    const wrapper = mount(<RoomRequestForm />);
-    expect(wrapper.exists());
-  });
+  it.skip("updates roomRequests when isActive=true", () => {});
 });
