@@ -1,7 +1,7 @@
 import React from "react";
 import { mount } from "enzyme";
 import chai from "chai";
-import Room from "./Room";
+import Room from "../Room";
 
 const setup = (propOverrides?: {
   isActive?: boolean;

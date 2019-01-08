@@ -1,6 +1,8 @@
+import { APP_NAME } from "./Constants";
+
 export const isAvailable = !!window.localStorage;
 
-const getKey = (key: string) => `${window.__app_name}.${key}`;
+const getKey = (key: string) => `${APP_NAME}.${key}`;
 
 export const set = (key: string, value: string) => {
   if (isAvailable) {

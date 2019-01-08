@@ -22,7 +22,7 @@ Here I intentionally only used React to manage form state [per best practices](h
 
 ## Testing
 
-Although current test coverage is only around %60, my strategy to isolated structural (smoke) tests from behavior-driven ones will allow the test suite to evolve independently along both paths. This is a critical area I would focus on next.
+I'm very please to report that overall test coverage is around %85, my strategy to isolated structural (smoke) tests from behavior-driven ones will allow the test suite to evolve independently along both paths. Testing strategy has full async support for backend data fetch & posts.
 
 
 
